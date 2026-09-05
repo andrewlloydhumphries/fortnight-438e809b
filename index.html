@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fortnightly Pay Calculator</title>
+<meta name="theme-color" content="#16232C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fortnight">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY+zV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB+n81AvYkXdvPx4/5O7++vghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6+vzlh6vjhzzc3B4/5FnY0c0xpIyBc+a3lzjGnuhO+thFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59+HD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY+aftbo6xfTx22tg+Hjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8+IHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9+/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU+YAAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY+zV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB+n81AvYkXdvPx4/5O7++vghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6+vzlh6vjhzzc3B4/5FnY0c0xpIyBc+a3lzjGnuhO+thFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59+HD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY+aftbo6xfTx22tg+Hjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8+IHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9+/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU+YAAAAABJRU5ErkJggg==">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22Fortnightly%20Pay%20Calculator%22%2C%20%22short_name%22%3A%20%22Fortnight%22%2C%20%22start_url%22%3A%20%22./%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%23E7ECEF%22%2C%20%22theme_color%22%3A%20%22%2316232C%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY%2BzV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB%2Bn81AvYkXdvPx4/5O7%2B%2BvghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6%2Bvzlh6vjhzzc3B4/5FnY0c0xpIyBc%2Ba3lzjGnuhO%2BthFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59%2BHD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY%2Baftbo6xfTx22tg%2BHjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8%2BIHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9%2B/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU%2BYAAAAABJRU5ErkJggg%3D%3D%22%2C%20%22sizes%22%3A%20%22180x180%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%22%7D%5D%7D">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+
+:root{
+  --ground:#E7ECEF; --card:#fff; --ink:#16232C; --muted:#63788A; --line:#CBD6DD; --grid:#DCE4E9;
+  --early:#C8871A; --late:#1F7A7A; --night:#3A3E8C; --stat:#A83250;
+  --wknd:#8E3B6B; --wknd-bg:#FBF1F6; --wknd-ln:#E6CBDA;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  font-variant-numeric:tabular-nums;
+  background:var(--ground); color:var(--ink); line-height:1.5;
+  padding:0 12px calc(48px + env(safe-area-inset-bottom));
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:640px;margin:0 auto}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-0.015em}
+p{margin:0}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-offset:2px}
+
+.masthead{padding:calc(18px + env(safe-area-inset-top)) 0 0}
+.masthead h1{font-size:19px;font-weight:600;line-height:1.2;letter-spacing:-0.02em}
+.rule{display:flex;gap:3px;margin-top:9px}
+.rule i{height:3px;border-radius:2px}
+.rule i:nth-child(1){width:26px;background:var(--early)}
+.rule i:nth-child(2){width:26px;background:var(--late)}
+.rule i:nth-child(3){width:26px;background:var(--night)}
+
+/* ---- summary ---- */
+.minibar{
+  position:fixed;top:0;left:0;right:0;z-index:40;background:var(--ink);color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(9px + env(safe-area-inset-top)) 16px 9px;
+  font-size:13px;transform:translateY(-102%);transition:transform .18s ease;
+  box-shadow:0 1px 8px rgba(0,0,0,.16);
+}
+.minibar.show{transform:translateY(0)}
+.minibar b{font-size:16px;font-weight:700}
+.minibar span{opacity:.72}
+
+.summary{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 14px 14px;margin:14px 0;
+}
+.who{padding-bottom:14px}
+.who + .who{border-top:1px solid var(--grid);padding-top:14px}
+.who-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.who-name{font-size:13px;font-weight:600}
+.who-note{font-size:11px;color:var(--muted);text-align:right}
+.who-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.who-sub b{font-weight:600}
+.fnlab{font-size:11px;color:var(--muted);margin-bottom:3px}
+.fnrange{font-size:11.5px;color:var(--ink);margin-top:5px;font-weight:500}
+.who-amt{font-size:36px;font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-top:1px}
+
+.split{margin-top:10px;border-left:2px solid var(--grid);padding-left:10px;
+  display:flex;flex-direction:column;gap:4px}
+.srow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12px}
+.srow span{color:var(--muted)}
+.srow b{font-weight:600;white-space:nowrap}
+.srow .made{display:block;font-size:10.5px;opacity:.8}
+.srow.up b{color:var(--late)}
+.srow.down b{color:var(--stat)}
+
+.totals{border-top:2px solid var(--ink);margin-top:2px}
+.tot-block{padding:12px 0}
+.tot-block:last-child{padding-bottom:2px}
+.tot-block + .tot-block{border-top:1px solid var(--grid)}
+.tot-lab{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.tot-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  font-size:12.5px;padding:1px 0}
+.tot-row span{color:var(--muted)}
+.tot-row b{font-weight:600;font-size:15px}
+.tot-block.take .tot-lab{color:var(--ink)}
+.tot-block.take .tot-row b{font-weight:700}
+.tot-block.take .tot-row.big{padding:2px 0 3px}
+.tot-block.take .tot-row.big b{font-size:28px;letter-spacing:-0.025em;line-height:1.05}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 14px;margin-bottom:14px}
+.card h2{font-size:15.5px}
+.card .lede{color:var(--muted);font-size:12.5px;margin-top:4px}
+.card-head{margin-bottom:12px}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.clear{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--muted);
+  font-size:12px;padding:7px 12px;min-height:34px;white-space:nowrap;
+  transition:border-color .12s,color .12s,background .12s}
+.clear:hover:not(:disabled){border-color:var(--stat);color:var(--stat);background:#FDF4F6}
+.clear:active:not(:disabled){transform:scale(.97)}
+.clear:disabled{opacity:.4;cursor:default}
+
+/* ---- fortnight control ---- */
+.fnrow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fnrow input[type=date]{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;
+  padding:6px 8px;background:#fff;color:var(--ink);min-height:34px}
+.step{display:flex;gap:6px}
+.step button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:6px 12px;
+  font-size:13px;color:var(--muted);min-height:34px;min-width:40px}
+.step button:active{background:var(--ground)}
+
+/* ---- day rows ---- */
+.wklabel{font-size:11px;color:var(--muted);margin:14px 0 6px;display:flex;justify-content:space-between}
+.wklabel span:last-child{font-weight:600;color:var(--ink)}
+.day{display:grid;grid-template-columns:74px repeat(3,minmax(0,1fr));gap:4px;margin-bottom:4px;align-items:stretch}
+.daylab{display:flex;flex-direction:column;justify-content:center;padding:0 6px 0 8px;text-align:left;
+  font-size:12px;line-height:1.15;border-radius:9px;transition:background .14s}
+@media (hover:hover){ .daylab:hover{background:var(--ground)} }
+.daylab b{font-weight:600}
+.daylab i{font-style:normal;color:var(--muted);font-size:11px}
+.daylab.we b{color:var(--wknd)}
+.daylab.ph{background:var(--stat);color:#fff;box-shadow:0 2px 8px rgba(168,50,80,.3)}
+.daylab.ph i,.daylab.ph b{color:#fff}
+.ph-tag{font-size:9.5px;font-weight:700;letter-spacing:.04em}
+
+.sh{border:1px solid var(--grid);background:#fff;border-radius:10px;min-height:48px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  font-size:12px;color:var(--muted);
+  transition:background .14s,color .14s,border-color .14s,box-shadow .14s,transform .1s}
+@media (hover:hover){ .sh:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(22,35,44,.09)} }
+.sh:active{transform:scale(.97)}
+.sh em{font-style:normal;font-size:9.5px;letter-spacing:.03em;opacity:.75}
+.sh.we{background:var(--wknd-bg);border-color:var(--wknd-ln)}
+.sh.on{color:#fff;border-color:transparent;font-weight:700;
+  background-image:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.07))}
+.sh.on.early{box-shadow:0 3px 10px rgba(200,135,26,.36)}
+.sh.on.late {box-shadow:0 3px 10px rgba(31,122,122,.36)}
+.sh.on.night{box-shadow:0 3px 10px rgba(58,62,140,.36)}
+.sh.on.ph   {box-shadow:0 3px 10px rgba(168,50,80,.36)}
+@keyframes pop{0%{transform:scale(.90)}55%{transform:scale(1.04)}100%{transform:scale(1)}}
+.sh.pop{animation:pop .26s cubic-bezier(.34,1.4,.5,1)}
+.sh.on em{opacity:.85}
+.sh.on.early{background:var(--early)} .sh.on.late{background:var(--late)}
+.sh.half{border-style:dashed}
+.sh.on.half{background:#4FA3A3;border-style:solid;
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.16) 0 5px,transparent 5px 10px)} .sh.on.night{background:var(--night)}
+.sh.on.we{box-shadow:inset 0 0 0 2px var(--wknd)}
+.sh.on.ph{background:var(--stat)}
+.sh.dim{opacity:.32}
+
+.tally{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.tally b{color:var(--ink);font-weight:600}
+
+/* ---- marginal list ---- */
+.marg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.marg li{display:grid;grid-template-columns:12px 1fr 66px 62px;align-items:center;gap:8px;font-size:12.5px}
+.sw{width:10px;height:10px;border-radius:1px}
+.sw.early{background:var(--early)} .sw.late{background:var(--late)}
+.sw.halfsw{background:#4FA3A3;height:5px;align-self:center} .sw.night{background:var(--night)}
+.m-net{text-align:right;font-weight:700}
+.m-hr{text-align:right;color:var(--muted);font-size:11.5px}
+
+/* ---- chart ---- */
+svg.chart{width:100%;height:auto;display:block}
+.gl{stroke:var(--grid);stroke-width:1}
+.cur{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+.ax{fill:var(--muted);font-size:10px}
+.ln{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.slider{display:flex;align-items:center;gap:10px;margin:12px 0 2px;font-size:12.5px}
+.slider input{flex:1;accent-color:var(--ink);min-height:30px}
+.slider output{font-weight:700;width:30px;text-align:right}
+.legend{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.legend li{display:grid;grid-template-columns:14px 1fr 72px;align-items:center;gap:8px;font-size:12.5px}
+.legend .key{height:3px;border-radius:2px}
+.k-val{text-align:right;font-weight:700}
+
+/* ---- ledger ---- */
+table.led{width:100%;border-collapse:collapse;font-size:12.5px}
+.led thead th{font-size:10.5px;color:var(--muted);text-align:right;padding-bottom:6px;
+  border-bottom:1px solid var(--line);font-weight:500}
+.led thead th:first-child{text-align:left}
+.led tbody th{text-align:left;font-weight:400;color:var(--muted);padding:6px 0}
+.led td{text-align:right;padding:6px 0}
+.led .tot{font-weight:700;color:var(--ink)}
+.led tr.strong{border-top:1px solid var(--line)}
+.led tr.strong th{color:var(--ink);font-weight:600;padding-top:9px}
+.led tr.strong td{font-weight:700;padding-top:9px}
+.note{font-size:11.5px;color:var(--muted);margin-top:12px}
+.warn{font-size:11.5px;color:var(--stat);margin-top:8px}
+
+/* ---- assumptions ---- */
+details summary{font-size:12.5px;color:var(--muted);cursor:pointer;list-style:none;
+  text-decoration:underline;text-underline-offset:3px;padding:2px 0}
+details summary::-webkit-details-marker{display:none}
+.fields{display:flex;flex-wrap:wrap;gap:12px 16px;margin:14px 0 4px}
+.field{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--muted)}
+.field .in{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 7px}
+.field i{font-style:normal;font-size:12.5px}
+.field input{border:none;padding:7px 2px;width:86px;font:inherit;font-size:13px;background:none;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.notes{margin:6px 0 0;padding-left:16px;font-size:11.5px;color:var(--muted)}
+.notes li{margin-bottom:6px}
+.notes b{color:var(--ink);font-weight:600}
+h3.sub{font-size:12.5px;margin:16px 0 5px}
+.reset{border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12.5px;
+  color:var(--muted);background:#fff;width:100%;min-height:40px;margin-top:16px}
+.foot{font-size:11px;color:var(--muted);text-align:center;padding:18px 0 4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (min-width:520px){
+  .day{grid-template-columns:96px repeat(3,minmax(0,1fr))}
+  .who-amt{font-size:46px}
+  .masthead h1{font-size:23px}
+  .tot-block.take .tot-row.big b{font-size:34px}
+  .summary{padding:20px 18px 16px}
+  body{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <h1>Fortnightly Pay Calculator</h1>
+  <div class="rule"><i></i><i></i><i></i></div>
+</header>
+
+<div class="minibar" id="minibar">
+  <span>Into the account</span><b id="miniAmt">$0</b>
+</div>
+
+<div class="summary" id="summary">
+  <div class="who">
+    <div class="who-head"><span class="who-name">Salary</span><span class="who-note" id="aNote"></span></div>
+    <div class="who-amt" id="aAmt">$0</div>
+    <div class="who-sub" id="aSub"></div>
+  </div>
+
+  <div class="who">
+    <div class="who-head"><span class="who-name">Shifts</span><span class="who-note" id="hNote"></span></div>
+    <div class="who-amt" id="hAmt">$0</div>
+    <div class="who-sub" id="hSub"></div>
+    <div class="split" id="hSplit"></div>
+  </div>
+
+  <div class="totals">
+    <div class="tot-block">
+      <div class="tot-lab">Gross</div>
+      <div class="tot-row"><span>This fortnight</span><b id="gF">$0</b></div>
+      <div class="tot-row"><span>A year</span><b id="gY">$0</b></div>
+    </div>
+    <div class="tot-block take">
+      <div class="tot-lab">Into the account</div>
+      <div class="tot-row big"><span>This fortnight</span><b id="nF">$0</b></div>
+      <div class="tot-row"><span>A year</span><b id="nY">$0</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="fnrow">
+    <div>
+      <div class="fnlab">Which fortnight</div>
+      <input type="date" id="start">
+      <div class="fnrange" id="fnrange"></div>
+    </div>
+    <div class="step">
+      <button id="prev" aria-label="Previous fortnight">&larr;</button>
+      <button id="next" aria-label="Next fortnight">&rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <div class="head-row">
+      <h2>The roster</h2>
+      <button class="clear" id="clear">Clear shifts</button>
+    </div>
+    <p class="lede">Tap a shift to add it. Tap the date to mark a public holiday. Hold the Late box to switch
+      that day to the short 14:40&ndash;19:00 shift. Every box shows what it would gross that day.</p>
+  </div>
+  <div id="roster"></div>
+  <div class="tally" id="tally"></div>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h2>What the next shift is worth</h2>
+    <p class="lede">After PAYE, student loan and KiwiSaver, on top of the roster above.</p>
+  </div>
+  <ul class="marg" id="marg"></ul>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h2>Adding shifts on top</h2>
+    <p class="lede">Household take-home as more of one kind of shift goes on.</p>
+  </div>
+  <svg class="chart" id="chart" viewBox="0 0 380 210" role="img" aria-label="Take-home by extra shifts"></svg>
+  <div class="slider">
+    <label for="extra" style="color:var(--muted)">Extra</label>
+    <input type="range" id="extra" min="0" max="6" step="1" value="2">
+    <output id="extraOut">+2</output>
+  </div>
+  <ul class="legend" id="legend"></ul>
+</div>
+
+<div class="card">
+  <div class="card-head"><h2>Where it goes</h2></div>
+  <table class="led">
+    <thead><tr><th></th><th>Salary</th><th>Shifts</th><th class="tot">Together</th></tr></thead>
+    <tbody id="led"></tbody>
+  </table>
+  <p class="note" id="ksnote"></p>
+  <p class="warn" id="warn" hidden></p>
+</div>
+
+<div class="card">
+  <details id="ass">
+    <summary>Assumptions, rates and where they came from</summary>
+    <div class="fields">
+      <label class="field"><span>Base rate</span><span class="in"><i>$</i><input type="number" id="base" step="0.01"></span></label>
+      <label class="field"><span>Paid hours / shift</span><span class="in"><input type="number" id="ph" step="0.25"></span></label>
+      <label class="field"><span>Short late hours</span><span class="in"><input type="number" id="phHalf" step="0.01"></span></label>
+      <label class="field"><span>Contracted FTE</span><span class="in"><input type="number" id="fte" step="0.05" min="0" max="1"></span></label>
+      <label class="field"><span>Annual salary</span><span class="in"><i>$</i><input type="number" id="sal" step="1000"></span></label>
+      <label class="field"><span>Shift KiwiSaver %</span><span class="in"><input type="number" id="hks" step="0.5"></span></label>
+      <label class="field"><span>Salary KiwiSaver %</span><span class="in"><input type="number" id="aks" step="0.5"></span></label>
+    </div>
+    <label class="chk"><input type="checkbox" id="asl"> Salaried earner has a student loan</label>
+
+    <h3 class="sub">Read off the payslips</h3>
+    <ul class="notes">
+      <li><b>Base rate $55.04</b>, and every shift pays <b>8.00 hours</b>. Ordinary hours of 24.00 and
+        32.00 are clean multiples, and the 1 June shift splits 1.25 + 6.75 = 8.00.</li>
+      <li><b>Night loading: +25% on hours worked 20:00&ndash;06:00, weekdays only.</b> That is what the
+        "NIGHT RATE" lines are. A late shift touches 20:00&ndash;23:00 &mdash; 3 hours &times; 25% &times;
+        $55.04 = $41.28, the exact figure on all five of those lines. A night shift touches 7.25 loaded
+        hours, so $99.76.</li>
+      <li><b>Weekend: time and a half.</b> The "W/E SHIFT" line is the extra half: 1.25 hours &times; 50%
+        &times; $55.04 = $34.40. Night loading does not stack on top of it.</li>
+      <li><b>Public holiday: double time plus a day in lieu</b>, from the 1 June line.</li>
+      <li>Student loan 12% above $928.00 a fortnight; KiwiSaver 3.5%. Both match all three payslips.</li>
+      <li><b>The short late (14:40&ndash;19:00) finishes before 20:00</b>, so it earns no night loading at
+        all &mdash; it pays flat base rate on a weekday, the same hourly as an early. Its paid hours are
+        assumed to be the full 4.33 clock hours with no unpaid break, which no payslip confirms yet.</li>
+    </ul>
+
+    <h3 class="sub">Tax settings, 2026&ndash;27</h3>
+    <ul class="notes">
+      <li>Brackets 10.5 / 17.5 / 30 / 33 / 39% at $15,600 / $53,500 / $78,100 / $180,000. ACC earners'
+        levy 1.75% capped at $156,641. IETC $520 on the ME code, abating above $66,000.</li>
+      <li>Against all three payslips this reproduces PAYE within two cents, so it is calibrated rather
+        than estimated.</li>
+    </ul>
+
+    <h3 class="sub">Where it is softer</h3>
+    <ul class="notes">
+      <li>None of the three payslips contains a plain early shift or an ordinary Saturday, so the weekend
+        rule rests on a single $34.40 line. Worth checking against a payslip with a real Saturday on it.</li>
+      <li>The 20:00&ndash;06:00 window fits every line, but 20:00&ndash;08:00 would too if early shifts are
+        exempt. If an early ever shows a $13.76 night line, it is the wider window.</li>
+      <li>Public holidays are pre-filled for 2026 and 2027 and can be tapped off. The 2027 Matariki date
+        has conflicting sources &mdash; confirm before relying on it.</li>
+      <li>Ignores annual, sick and study leave, overtime past 80 hours a fortnight, on-call and PDRP
+        allowances.</li>
+    </ul>
+    <button class="reset" id="reset">Clear the roster and start again</button>
+  </details>
+</div>
+
+<p class="foot">Saved on this phone only. Nothing leaves the device.</p>
+</div>
+
+<script>
+/* ============ pay engine ============ */
+var SHIFTS = {
+  early: {label:"Early", clock:"07:00-15:00", start:7,        end:15},
+  late:  {label:"Late",  clock:"14:40-23:00", start:14+40/60, end:23},
+  night: {label:"Night", clock:"22:45-06:45", start:22.75,    end:30.75}
+};
+var HALF = {label:"Late \u00bd", clock:"14:40-19:00", start:14+40/60, end:19};
+var ORDER = ["early","late","night"];
+var DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+var HOLIDAYS = {
+  "2026-01-01":"New Year","2026-01-02":"Day after","2026-02-06":"Waitangi",
+  "2026-03-23":"Otago Anniv","2026-04-03":"Good Friday","2026-04-06":"Easter Mon",
+  "2026-04-27":"Anzac (obs)","2026-06-01":"King's B'day","2026-07-10":"Matariki",
+  "2026-10-26":"Labour Day","2026-12-25":"Christmas","2026-12-28":"Boxing (obs)",
+  "2027-01-01":"New Year","2027-01-04":"Day after (obs)","2027-02-08":"Waitangi (obs)",
+  "2027-03-22":"Otago Anniv","2027-03-26":"Good Friday","2027-03-29":"Easter Mon",
+  "2027-04-26":"Anzac (obs)","2027-06-07":"King's B'day","2027-06-25":"Matariki",
+  "2027-10-25":"Labour Day","2027-12-27":"Christmas (obs)","2027-12-28":"Boxing (obs)"
+};
+
+var BRACKETS = [[15600,.105],[53500,.175],[78100,.30],[180000,.33],[Infinity,.39]];
+var ACC_RATE = .0175, ACC_CAP = 156641, SL_ANNUAL = 24128, SL_RATE = .12;
+
+function annualTax(i){var t=0,p=0;for(var k=0;k<BRACKETS.length;k++){var c=BRACKETS[k][0],r=BRACKETS[k][1];
+  if(i<=p)break; t+=(Math.min(i,c)-p)*r; p=c;} return t;}
+function ietc(i){ if(i<24000||i>70000) return 0; return i<=66000?520:Math.max(0,520-(i-66000)*.13); }
+function paye(g,cr){var a=g*26; return Math.max(0,(annualTax(a)+Math.min(a,ACC_CAP)*ACC_RATE-(cr?ietc(a):0))/26);}
+function packet(g,cr,sl,ks){
+  var p=paye(g,cr), s=sl?Math.max(0,g-SL_ANNUAL/26)*SL_RATE:0, k=g*ks;
+  return {gross:g,paye:p,sl:s,ks:k,net:g-p-s-k};
+}
+function ov(a,b,lo,hi){ return Math.max(0,Math.min(b,hi)-Math.max(a,lo)); }
+
+/* gross for one shift, split hour-by-hour across calendar days */
+function isHalf(i){ return !!S.half[isoAt(i)]; }
+function paidFor(type,half){ return (type==="late" && half) ? S.phHalf : S.ph; }
+
+function shiftGross(dayIdx, type, halfOpt){
+  var half = (halfOpt===undefined) ? (type==="late" && isHalf(dayIdx)) : halfOpt;
+  var s = (type==="late" && half) ? HALF : SHIFTS[type];
+  var PH = paidFor(type,half);
+  var span=s.end-s.start;
+  var segs = s.end<=24 ? [[dayIdx,s.start,s.end]]
+                       : [[dayIdx,s.start,24],[dayIdx+1,0,s.end-24]];
+  var tot = PH * S.base;
+  for(var i=0;i<segs.length;i++){
+    var d=segs[i][0], a=segs[i][1], b=segs[i][2];
+    var paid = PH*(b-a)/span, dow=((d%7)+7)%7;
+    if(isStatIdx(d))      tot += paid*S.base*1.0;
+    else if(dow>=5)       tot += paid*S.base*0.5;
+    else                  tot += (ov(a,b,20,24)+ov(a,b,0,6))*S.base*0.25;
+  }
+  return tot;
+}
+
+/* ============ state ============ */
+var DEF = {base:55.04, ph:8, phHalf:4.33, half:{}, seeded:{}, sal:125000, hks:3.5, aks:3.5, asl:false, fte:0.6,
+           start:null, shifts:{}, statOff:{}, statOn:{}, extra:2};
+var S = load();
+
+function load(){
+  try{ var r=JSON.parse(localStorage.getItem("fortnight")||"{}");
+       var o={}; for(var k in DEF) o[k]=(k in r)?r[k]:DEF[k];
+       if(!o.start) o.start=isoOf(thisFortnight());
+       else { var q=o.start.split("-"); o.start=isoOf(mondayOf(new Date(+q[0],+q[1]-1,+q[2]))); }
+       return o;
+  }catch(e){ var d=Object.assign({},DEF); d.start=isoOf(thisFortnight()); return d; }
+}
+function save(){ try{ localStorage.setItem("fortnight", JSON.stringify(S)); }catch(e){} }
+
+/* Her pay fortnights are Monday-Sunday, ending on the Sunday, paid the Wednesday
+   after. The three payslips end 14 Jun, 28 Jun and 12 Jul 2026; +14 four times from
+   12 Jul lands on Sun 6 Sep, so the next fortnight opens Mon 7 Sep 2026. Everything
+   below snaps to that grid -- the off-week is never selectable. */
+function anchor(){ return new Date(2026,8,7); }   /* function, not var: load() runs first */
+function dayNum(d){ return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5); }
+function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); x.setDate(x.getDate()+n); return x; }
+function thisFortnight(){ return mondayOf(addDays(new Date(),1)); }
+function mondayOf(d){ var A=anchor(); return addDays(A, Math.floor((dayNum(d)-dayNum(A))/14)*14); }
+function isoOf(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function dateAt(i){ var p=S.start.split("-"); var d=new Date(+p[0],+p[1]-1,+p[2]); d.setDate(d.getDate()+i); return d; }
+function isoAt(i){ return isoOf(dateAt(i)); }
+function isStatIdx(i){ var k=isoAt(i);
+  if(S.statOff[k]) return false; if(S.statOn[k]) return true; return !!HOLIDAYS[k]; }
+function holName(i){ var k=isoAt(i); return S.statOn[k] ? (HOLIDAYS[k]||"Holiday") : (HOLIDAYS[k]||""); }
+
+var money=function(n,dp){ if(dp===undefined)dp=2;
+  return "$"+n.toLocaleString("en-NZ",{minimumFractionDigits:dp,maximumFractionDigits:dp}); };
+
+/* ============ derived ============ */
+/* two afternoons and a Saturday night each week -- her usual shape, 0.6 FTE */
+var TEMPLATE = {1:"late",3:"late",5:"night",8:"late",10:"late",12:"night"};
+function seed(){
+  if(S.seeded[S.start]) return;
+  S.seeded[S.start]=1;
+  for(var k in TEMPLATE){ var iso=isoAt(+k); if(!S.shifts[iso]) S.shifts[iso]=TEMPLATE[k]; }
+}
+
+function grossOf(map){ var t=0; for(var k in map){ var i=+k; if(map[k]) t+=shiftGross(i,map[k]); } return t; }
+function hoursOf(map){ var t=0; for(var k in map){ var i=+k;
+  if(map[k]) t+=paidFor(map[k], map[k]==="late"&&isHalf(i)); } return t; }
+function currentMap(){ var m={}; for(var i=0;i<14;i++){ var v=S.shifts[isoAt(i)]; if(v) m[i]=v; } return m; }
+function hollieOf(g){ return packet(g,true,true,S.hks/100); }
+function andrewPk(){ return packet(S.sal/26,false,S.asl,S.aks/100); }
+/* the contracted floor: FTE x 80 hours a fortnight, worked entirely as the
+   lowest-paying shift there is (a weekday early, no loadings at all) */
+function baseShifts(){ return Math.max(0, Math.round(S.fte*80/S.ph)); }
+function baseGross(){ return baseShifts()*S.ph*S.base; }
+
+/* ============ render ============ */
+function render(){
+  seed();
+  var map=currentMap();
+  var hg=grossOf(map), h=hollieOf(hg), a=andrewPk(), hh=h.net+a.net;
+
+  var bg=baseGross(), bnet=hollieOf(bg).net, uplift=h.net-bnet, nb=baseShifts();
+
+  document.getElementById("aNote").textContent = money(a.gross,0)+" gross";
+  document.getElementById("aAmt").textContent  = money(a.net,0);
+  document.getElementById("aSub").innerHTML    = "after tax \u00b7 "+money(S.sal,0)+" a year, fixed";
+
+  var n=Object.keys(map).length, hrs=hoursOf(map), efte=hrs/80;
+  document.getElementById("hNote").textContent = money(hg,0)+" gross";
+  document.getElementById("hAmt").textContent  = money(h.net,0);
+  document.getElementById("hSub").innerHTML =
+    "after tax \u00b7 "+n+" shift"+(n===1?"":"s")+" \u00b7 "+(hrs%1?hrs.toFixed(2):hrs)+" hrs \u00b7 "+
+    "<b style='color:"+(efte>=S.fte?"var(--late)":"var(--stat)")+"'>"+efte.toFixed(2)+" FTE</b>";
+
+  var flat = Math.abs(uplift) < 0.5, up = uplift >= 0;
+  document.getElementById("hSplit").innerHTML =
+    "<div class='srow'><span>"+S.fte.toFixed(2).replace(/0$/,"")+" FTE base"+
+      "<span class='made'>"+nb+" weekday earlies, "+(nb*S.ph).toFixed(0)+" hrs, no loadings</span></span>"+
+      "<b>"+money(bnet,0)+"</b></div>"+
+    "<div class='srow "+(flat?"":(up?"up":"down"))+"'><span>"+
+      (flat?"Exactly at base":(up?"Picked up above base":"Short of base"))+
+      "<span class='made'>"+(flat?"no loadings, no extra hours":
+        (up?"better shifts and extra hours":"fewer hours than contracted"))+"</span></span>"+
+      "<b>"+(flat?"":(up?"+":"\u2212"))+money(Math.abs(uplift),0)+"</b></div>";
+
+  var grossFn = a.gross + hg;
+  document.getElementById("gF").textContent = money(grossFn,0);
+  document.getElementById("gY").textContent = money(grossFn*26,0);
+  document.getElementById("nF").textContent = money(hh,0);
+  document.getElementById("nY").textContent = money(hh*26,0);
+  document.getElementById("miniAmt").textContent = money(hh,0);
+
+  var d0=dateAt(0), d13=dateAt(13), pay=addDays(d13,3);
+  var dd=function(x){ return DOW[(x.getDay()+6)%7]+" "+x.getDate()+" "+MON[x.getMonth()]; };
+  document.getElementById("fnrange").textContent =
+    dd(d0)+" \u2013 "+dd(d13)+", paid "+dd(pay);
+
+  /* roster */
+  var host=document.getElementById("roster"); host.innerHTML="";
+  for(var w=0;w<2;w++){
+    var wg=0; for(var j=w*7;j<w*7+7;j++) if(map[j]) wg+=shiftGross(j,map[j]);
+    var lab=document.createElement("div"); lab.className="wklabel";
+    lab.innerHTML="<span>Week "+(w+1)+"</span><span>"+money(wg,0)+"</span>";
+    host.appendChild(lab);
+    for(var i=w*7;i<w*7+7;i++) host.appendChild(dayRow(i,map));
+  }
+
+  var clr=document.getElementById("clear");
+  clr.disabled = (n===0);
+  clr.textContent = n===0 ? "No shifts planned" : "Clear shifts";
+
+  document.getElementById("tally").innerHTML =
+    "<span><b>"+n+"</b> shift"+(n===1?"":"s")+"</span>"+
+    "<span><b>"+hrs.toFixed(2)+"</b> paid hours</span>"+
+    "<span><b>"+(hrs/80).toFixed(2)+"</b> FTE</span>"+
+    "<span><b>"+money(hg)+"</b> gross</span>";
+
+  lastPop=null;
+
+  renderMarginal(map,hg,h.net);
+  renderChart(map,a.net);
+  renderLedger(a,h);
+  save();
+}
+
+var lastPop=null;
+function dayRow(i,map){
+  var row=document.createElement("div"); row.className="day";
+  var dt=dateAt(i), dow=((i%7)+7)%7, we=dow>=5, ph=isStatIdx(i), nm=holName(i);
+
+  var lab=document.createElement("button");
+  lab.className="daylab"+(we?" we":"")+(ph?" ph":"");
+  lab.innerHTML="<b>"+DOW[dow]+" "+dt.getDate()+" "+MON[dt.getMonth()]+"</b>"+
+                (ph?"<i class='ph-tag'>"+(nm||"HOLIDAY").toUpperCase()+"</i>":"");
+  lab.title="Mark as a public holiday";
+  lab.onclick=function(){ var k=isoAt(i);
+    if(isStatIdx(i)){ delete S.statOn[k]; S.statOff[k]=1; }
+    else { delete S.statOff[k]; S.statOn[k]=1; }
+    render(); };
+  row.appendChild(lab);
+
+  ORDER.forEach(function(t){
+    var half = (t==="late" && isHalf(i));
+    var on = map[i]===t, blocked = map[i] && !on;
+    var b=document.createElement("button");
+    b.className="sh "+t+(on?" on":"")+(blocked?" dim":"")+(we?" we":"")+
+                (ph&&on?" ph":"")+(half?" half":"")+
+                (lastPop===i+"|"+t?" pop":"");
+    var lbl = half ? HALF.label : SHIFTS[t].label;
+    b.innerHTML="<em>"+lbl+"</em>"+money(shiftGross(i,t),0);
+    b.setAttribute("aria-pressed",on?"true":"false");
+    b.title = (half?HALF.clock:SHIFTS[t].clock) +
+      (t==="late" ? " \u2014 hold to switch to the short late" : "");
+
+    var toggle=function(){ var k=isoAt(i);
+      if(S.shifts[k]===t) delete S.shifts[k]; else { S.shifts[k]=t; lastPop=i+"|"+t; }
+      render(); };
+
+    if(t==="late"){
+      var timer=null, fired=false;
+      var flip=function(){ fired=true; var k=isoAt(i);
+        if(S.half[k]) delete S.half[k]; else S.half[k]=1;
+        if(navigator.vibrate) try{navigator.vibrate(14);}catch(e){}
+        render(); };
+      var down=function(){ fired=false; clearTimeout(timer); timer=setTimeout(flip,450); };
+      var up=function(){ clearTimeout(timer); };
+      b.addEventListener("touchstart",down,{passive:true});
+      b.addEventListener("touchmove",up,{passive:true});
+      b.addEventListener("touchend",function(e){ up(); if(fired){ e.preventDefault(); fired=false; } });
+      b.addEventListener("mousedown",down);
+      b.addEventListener("mouseup",up);
+      b.addEventListener("mouseleave",up);
+      b.addEventListener("contextmenu",function(e){ e.preventDefault(); flip(); });
+      b.onclick=function(){ if(fired){ fired=false; return; } toggle(); };
+    } else {
+      b.onclick=toggle;
+    }
+    row.appendChild(b);
+  });
+  return row;
+}
+
+function renderMarginal(map,hg,hnet){
+  var VAR = [{t:"early",h:false,n:"early"},{t:"late",h:false,n:"late"},
+             {t:"late", h:true, n:"short late"},{t:"night",h:false,n:"night"}];
+  var out=[];
+  VAR.forEach(function(v){
+    [["Weekday",false],["Weekend",true]].forEach(function(kind){
+      var want=kind[1], idx=-1;
+      for(var i=0;i<14;i++){ var dow=i%7;
+        if(!map[i] && (dow>=5)===want && !isStatIdx(i)){ idx=i; break; } }
+      if(idx<0) return;
+      var hrs=paidFor(v.t,v.h);
+      var g=hg+shiftGross(idx,v.t,v.h), gain=hollieOf(g).net-hnet;
+      out.push({t:v.t,half:v.h,label:kind[0]+" "+v.n,net:gain,hr:gain/hrs});
+    });
+  });
+  for(var i=0;i<14;i++){ if(!map[i] && isStatIdx(i)){
+      var g=hg+shiftGross(i,"late",false);
+      out.push({t:"late",half:false,label:"Public holiday",
+                net:hollieOf(g).net-hnet,hr:(hollieOf(g).net-hnet)/S.ph}); break; } }
+  out.sort(function(x,y){return y.net-x.net;});
+  document.getElementById("marg").innerHTML = out.map(function(m){
+    return "<li><span class='sw "+m.t+(m.half?" halfsw":"")+"'></span><span>"+m.label+"</span>"+
+      "<span class='m-net'>"+money(m.net,0)+"</span>"+
+      "<span class='m-hr'>"+money(m.hr,2)+"/hr</span></li>";
+  }).join("") || "<li style='color:var(--muted)'>Every day is rostered.</li>";
+}
+
+var KINDS=[{id:"ew",label:"Weekday early",t:"early",we:false,c:"var(--early)"},
+           {id:"lw",label:"Weekday late", t:"late", we:false,c:"var(--late)"},
+           {id:"nw",label:"Weekday night",t:"night",we:false,c:"var(--night)"},
+           {id:"we",label:"Weekend (any)",t:"late", we:true, c:"var(--wknd)"}];
+
+function renderChart(map,anet){
+  var curves=KINDS.map(function(k){
+    var trial={}; for(var q in map) trial[q]=map[q];
+    var pts=[];
+    for(var n=0;n<=6;n++){
+      if(n>0){ var idx=-1;
+        for(var i=0;i<14;i++){ var dow=i%7;
+          if(!trial[i] && (dow>=5)===k.we && !isStatIdx(i)){ idx=i; break; } }
+        if(idx<0) break; trial[idx]=k.t; }
+      var gg=0; for(var q in trial) gg+=shiftGross(+q,trial[q],false);
+      pts.push({n:n, v:hollieOf(gg).net+anet});
+    }
+    return {k:k, pts:pts};
+  });
+
+  var W=380,H=210,PL=52,PR=8,PT=10,PB=26;
+  var all=[]; curves.forEach(function(c){c.pts.forEach(function(p){all.push(p.v);});});
+  var lo=Math.min.apply(null,all), hi=Math.max.apply(null,all), pad=(hi-lo)*.12||100;
+  var y0=lo-pad, y1=hi+pad;
+  var X=function(n){return PL+(n/6)*(W-PL-PR);}, Y=function(v){return PT+(1-(v-y0)/(y1-y0))*(H-PT-PB);};
+  var maxN=Math.max.apply(null,curves.map(function(c){return c.pts.length-1;}));
+  var sl=document.getElementById("extra"); sl.max=Math.max(1,maxN);
+  var n=Math.min(S.extra,maxN); sl.value=n; document.getElementById("extraOut").textContent="+"+n;
+
+  var svg="";
+  for(var g=0;g<=3;g++){ var v=y0+(y1-y0)*g/3;
+    svg+="<line class='gl' x1='"+PL+"' x2='"+(W-PR)+"' y1='"+Y(v)+"' y2='"+Y(v)+"'/>"+
+         "<text class='ax' x='"+(PL-6)+"' y='"+(Y(v)+3)+"' text-anchor='end'>$"+Math.round(v).toLocaleString("en-NZ")+"</text>"; }
+  for(var i=0;i<=6;i++) svg+="<text class='ax' x='"+X(i)+"' y='"+(H-8)+"' text-anchor='middle'>+"+i+"</text>";
+  svg+="<line class='cur' x1='"+X(n)+"' x2='"+X(n)+"' y1='"+PT+"' y2='"+(H-PB)+"'/>";
+  curves.forEach(function(c){
+    svg+="<polyline class='ln' stroke='"+c.k.c+"' points='"+
+      c.pts.map(function(p){return X(p.n)+","+Y(p.v);}).join(" ")+"'/>";
+    var p=c.pts[Math.min(n,c.pts.length-1)];
+    svg+="<circle cx='"+X(p.n)+"' cy='"+Y(p.v)+"' r='4' fill='"+c.k.c+"'/>";
+  });
+  document.getElementById("chart").innerHTML=svg;
+
+  document.getElementById("legend").innerHTML=curves.map(function(c){
+    var p=c.pts[Math.min(n,c.pts.length-1)];
+    return "<li><span class='key' style='background:"+c.k.c+"'></span><span>"+c.k.label+
+      (n>c.pts.length-1?" <span style='color:var(--muted)'>(only "+(c.pts.length-1)+" free)</span>":"")+
+      "</span><span class='k-val'>"+money(p.v,0)+"</span></li>";
+  }).join("");
+}
+
+function renderLedger(a,h){
+  var z=function(v){ return Math.abs(v)<.005 ? "&mdash;" : (v<0?"\u2212":"")+money(Math.abs(v)); };
+  var rows=[["Gross",a.gross,h.gross,0],["PAYE (incl. ACC)",-a.paye,-h.paye,0],
+            ["Student loan",-a.sl,-h.sl,0],["KiwiSaver",-a.ks,-h.ks,0],
+            ["Into the account",a.net,h.net,1]];
+  document.getElementById("led").innerHTML=rows.map(function(r){
+    return "<tr"+(r[3]?" class='strong'":"")+"><th>"+r[0]+"</th><td>"+z(r[1])+"</td><td>"+
+      z(r[2])+"</td><td class='tot'>"+z(r[1]+r[2])+"</td></tr>"; }).join("");
+  document.getElementById("ksnote").textContent =
+    "Employer KiwiSaver adds another "+money(a.gross*(S.aks/100)+h.gross*(S.hks/100),0)+
+    " a fortnight to your balances before ESCT. It's yours, it just doesn't reach the account.";
+  var w=document.getElementById("warn");
+  if(h.gross*26>53500){ w.hidden=false;
+    w.textContent="At this pace the shift earner's fortnight annualises past $53,500, so payroll taxes the top of "+
+      "it at 30%. PAYE annualises each pay period on its own, so a lumpy fortnight is over-deducted \u2014 "+
+      "IRD squares it up in the end-of-year assessment."; }
+  else w.hidden=true;
+}
+
+/* ============ wiring ============ */
+function bindNum(id,key){ var el=document.getElementById(id); el.value=S[key];
+  el.onchange=function(){ S[key]=parseFloat(el.value)||0; render(); }; }
+["base","ph","phHalf","fte","sal","hks","aks"].forEach(function(k){ bindNum(k,k); });
+var aslEl=document.getElementById("asl"); aslEl.checked=!!S.asl;
+aslEl.onchange=function(){ S.asl=aslEl.checked; render(); };
+
+var st=document.getElementById("start"); st.value=S.start;
+st.onchange=function(){ var p=st.value.split("-");
+  S.start=isoOf(mondayOf(new Date(+p[0],+p[1]-1,+p[2]))); st.value=S.start; render(); };
+document.getElementById("prev").onclick=function(){ shiftFn(-14); };
+document.getElementById("next").onclick=function(){ shiftFn(14); };
+function shiftFn(n){ var d=dateAt(n); S.start=isoOf(d); st.value=S.start; render();
+  window.scrollTo({top:0,behavior:"smooth"}); }
+
+var sl=document.getElementById("extra");
+sl.oninput=function(){ S.extra=+sl.value; document.getElementById("extraOut").textContent="+"+sl.value;
+  render(); };
+
+document.getElementById("reset").onclick=function(){
+  if(!confirm("Clear every shift and reset the rates?")) return;
+  S=Object.assign({},DEF,{shifts:{},half:{},seeded:{},statOff:{},statOn:{},start:isoOf(thisFortnight())});
+  ["base","ph","phHalf","fte","sal","hks","aks"].forEach(function(k){ document.getElementById(k).value=S[k]; });
+  aslEl.checked=false; st.value=S.start; render();
+};
+
+document.getElementById("clear").onclick=function(){
+  for(var i=0;i<14;i++){ var k=isoAt(i); delete S.shifts[k]; delete S.half[k]; }
+  lastPop=null; render();
+};
+
+var mb=document.getElementById("minibar"), sm=document.getElementById("summary");
+function onScroll(){
+  var b = sm.getBoundingClientRect().bottom;
+  if(b < 0) mb.classList.add("show"); else mb.classList.remove("show");
+}
+window.addEventListener("scroll", onScroll, {passive:true});
+window.addEventListener("resize", onScroll, {passive:true});
+
+render();
+onScroll();
+</script>
+</body>
+</html>
