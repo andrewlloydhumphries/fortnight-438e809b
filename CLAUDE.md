@@ -73,8 +73,9 @@ student loan        12% above $928.00 per fortnight ($24,128/yr ÷ 26)
 KiwiSaver default   3.5% employee (rose from 3% on 1 Apr 2026)
 ```
 PAYE annualises each pay period independently (`gross × 26`), which is what IRD's tables
-do. That is also why the app warns about over-deduction on a lumpy fortnight. Don't
-"correct" it to a smoothed annual calculation — it would stop matching payroll.
+do. A lumpy fortnight is therefore over-deducted and IRD squares it up at year end; the
+page used to warn about this and the owner removed the note. Don't "correct" the
+calculation to a smoothed annual one — it would stop matching payroll.
 These rates change on 1 April. When the 2027–28 year starts, check IRD and update
 `BRACKETS`, `ACC_RATE`, `ACC_CAP`, `SL_ANNUAL`.
 ## No calendar — deliberately

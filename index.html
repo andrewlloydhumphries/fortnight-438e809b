@@ -160,7 +160,6 @@ table.led{width:100%;border-collapse:collapse;font-size:12.5px}
 .led tr.strong th{color:var(--ink);font-weight:600;padding-top:9px}
 .led tr.strong td{font-weight:700;padding-top:9px}
 .note{font-size:11.5px;color:var(--muted);margin-top:12px}
-.warn{font-size:11.5px;color:var(--stat);margin-top:8px}
 
 /* ---- assumptions ---- */
 details summary{font-size:12.5px;color:var(--muted);cursor:pointer;list-style:none;
@@ -251,7 +250,6 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
     <tbody id="led"></tbody>
   </table>
   <p class="note" id="ksnote"></p>
-  <p class="warn" id="warn" hidden></p>
 </div>
 
 <div class="card">
@@ -533,12 +531,6 @@ function renderLedger(a,h){
   document.getElementById("ksnote").textContent =
     "Employer KiwiSaver adds another "+money(a.gross*(S.aks/100)+h.gross*(S.hks/100),0)+
     " a fortnight to your balances before ESCT. It's yours, it just doesn't reach the account.";
-  var w=document.getElementById("warn");
-  if(h.gross*26>53500){ w.hidden=false;
-    w.textContent="At this pace the shift earner's fortnight annualises past $53,500, so payroll taxes the top of "+
-      "it at 30%. PAYE annualises each pay period on its own, so a lumpy fortnight is over-deducted \u2014 "+
-      "IRD squares it up in the end-of-year assessment."; }
-  else w.hidden=true;
 }
 
 /* ============ wiring ============ */
