@@ -157,29 +157,6 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
   margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 .tally b{color:var(--ink);font-weight:600}
 
-/* ---- marginal list ---- */
-.marg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.marg li{display:grid;grid-template-columns:12px 1fr 66px 62px;align-items:center;gap:8px;font-size:12.5px}
-.sw{width:10px;height:10px;border-radius:1px}
-.sw.early{background:var(--early)} .sw.late{background:var(--late)}
-.sw.halfsw{background:#4FA3A3;height:5px;align-self:center} .sw.night{background:var(--night)}
-.m-net{text-align:right;font-weight:700}
-.m-hr{text-align:right;color:var(--muted);font-size:11.5px}
-
-/* ---- chart ---- */
-svg.chart{width:100%;height:auto;display:block}
-.gl{stroke:var(--grid);stroke-width:1}
-.cur{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
-.ax{fill:var(--muted);font-size:10px}
-.ln{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
-.slider{display:flex;align-items:center;gap:10px;margin:12px 0 2px;font-size:12.5px}
-.slider input{flex:1;accent-color:var(--ink);min-height:30px}
-.slider output{font-weight:700;width:30px;text-align:right}
-.legend{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
-.legend li{display:grid;grid-template-columns:14px 1fr 72px;align-items:center;gap:8px;font-size:12.5px}
-.legend .key{height:3px;border-radius:2px}
-.k-val{text-align:right;font-weight:700}
-
 /* ---- ledger ---- */
 table.led{width:100%;border-collapse:collapse;font-size:12.5px}
 .led thead th{font-size:10.5px;color:var(--muted);text-align:right;padding-bottom:6px;
@@ -288,28 +265,6 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
   </div>
   <div id="roster"></div>
   <div class="tally" id="tally"></div>
-</div>
-
-<div class="card">
-  <div class="card-head">
-    <h2>What the next shift is worth</h2>
-    <p class="lede">After PAYE, student loan and KiwiSaver, on top of the roster above.</p>
-  </div>
-  <ul class="marg" id="marg"></ul>
-</div>
-
-<div class="card">
-  <div class="card-head">
-    <h2>Adding shifts on top</h2>
-    <p class="lede">Household take-home as more of one kind of shift goes on.</p>
-  </div>
-  <svg class="chart" id="chart" viewBox="0 0 380 210" role="img" aria-label="Take-home by extra shifts"></svg>
-  <div class="slider">
-    <label for="extra" style="color:var(--muted)">Extra</label>
-    <input type="range" id="extra" min="0" max="6" step="1" value="2">
-    <output id="extraOut">+2</output>
-  </div>
-  <ul class="legend" id="legend"></ul>
 </div>
 
 <div class="card">
@@ -439,7 +394,7 @@ function shiftGross(dayIdx, type, halfOpt){
 
 /* ============ state ============ */
 var DEF = {base:55.04, ph:8, phHalf:4.33, half:{}, seeded:{}, sal:125000, hks:3.5, aks:3.5, asl:false, fte:0.6,
-           start:null, shifts:{}, statOff:{}, statOn:{}, extra:2};
+           start:null, shifts:{}, statOff:{}, statOn:{}};
 var S = load();
 
 function load(){
@@ -555,8 +510,6 @@ function render(){
 
   lastPop=null;
 
-  renderMarginal(map,hg,h.net);
-  renderChart(map,a.net);
   renderLedger(a,h);
   save();
 }
@@ -618,84 +571,6 @@ function dayRow(i,map){
   return row;
 }
 
-function renderMarginal(map,hg,hnet){
-  var VAR = [{t:"early",h:false,n:"early"},{t:"late",h:false,n:"late"},
-             {t:"late", h:true, n:"short late"},{t:"night",h:false,n:"night"}];
-  var out=[];
-  VAR.forEach(function(v){
-    [["Weekday",false],["Weekend",true]].forEach(function(kind){
-      var want=kind[1], idx=-1;
-      for(var i=0;i<14;i++){ var dow=i%7;
-        if(!map[i] && (dow>=5)===want && !isStatIdx(i)){ idx=i; break; } }
-      if(idx<0) return;
-      var hrs=paidFor(v.t,v.h);
-      var g=hg+shiftGross(idx,v.t,v.h), gain=hollieOf(g).net-hnet;
-      out.push({t:v.t,half:v.h,label:kind[0]+" "+v.n,net:gain,hr:gain/hrs});
-    });
-  });
-  for(var i=0;i<14;i++){ if(!map[i] && isStatIdx(i)){
-      var g=hg+shiftGross(i,"late",false);
-      out.push({t:"late",half:false,label:"Public holiday",
-                net:hollieOf(g).net-hnet,hr:(hollieOf(g).net-hnet)/S.ph}); break; } }
-  out.sort(function(x,y){return y.net-x.net;});
-  document.getElementById("marg").innerHTML = out.map(function(m){
-    return "<li><span class='sw "+m.t+(m.half?" halfsw":"")+"'></span><span>"+m.label+"</span>"+
-      "<span class='m-net'>"+money(m.net,0)+"</span>"+
-      "<span class='m-hr'>"+money(m.hr,2)+"/hr</span></li>";
-  }).join("") || "<li style='color:var(--muted)'>Every day is rostered.</li>";
-}
-
-var KINDS=[{id:"ew",label:"Weekday early",t:"early",we:false,c:"var(--early)"},
-           {id:"lw",label:"Weekday late", t:"late", we:false,c:"var(--late)"},
-           {id:"nw",label:"Weekday night",t:"night",we:false,c:"var(--night)"},
-           {id:"we",label:"Weekend (any)",t:"late", we:true, c:"var(--wknd)"}];
-
-function renderChart(map,anet){
-  var curves=KINDS.map(function(k){
-    var trial={}; for(var q in map) trial[q]=map[q];
-    var pts=[];
-    for(var n=0;n<=6;n++){
-      if(n>0){ var idx=-1;
-        for(var i=0;i<14;i++){ var dow=i%7;
-          if(!trial[i] && (dow>=5)===k.we && !isStatIdx(i)){ idx=i; break; } }
-        if(idx<0) break; trial[idx]=k.t; }
-      var gg=0; for(var q in trial) gg+=shiftGross(+q,trial[q],false);
-      pts.push({n:n, v:hollieOf(gg).net+anet});
-    }
-    return {k:k, pts:pts};
-  });
-
-  var W=380,H=210,PL=52,PR=8,PT=10,PB=26;
-  var all=[]; curves.forEach(function(c){c.pts.forEach(function(p){all.push(p.v);});});
-  var lo=Math.min.apply(null,all), hi=Math.max.apply(null,all), pad=(hi-lo)*.12||100;
-  var y0=lo-pad, y1=hi+pad;
-  var X=function(n){return PL+(n/6)*(W-PL-PR);}, Y=function(v){return PT+(1-(v-y0)/(y1-y0))*(H-PT-PB);};
-  var maxN=Math.max.apply(null,curves.map(function(c){return c.pts.length-1;}));
-  var sl=document.getElementById("extra"); sl.max=Math.max(1,maxN);
-  var n=Math.min(S.extra,maxN); sl.value=n; document.getElementById("extraOut").textContent="+"+n;
-
-  var svg="";
-  for(var g=0;g<=3;g++){ var v=y0+(y1-y0)*g/3;
-    svg+="<line class='gl' x1='"+PL+"' x2='"+(W-PR)+"' y1='"+Y(v)+"' y2='"+Y(v)+"'/>"+
-         "<text class='ax' x='"+(PL-6)+"' y='"+(Y(v)+3)+"' text-anchor='end'>$"+Math.round(v).toLocaleString("en-NZ")+"</text>"; }
-  for(var i=0;i<=6;i++) svg+="<text class='ax' x='"+X(i)+"' y='"+(H-8)+"' text-anchor='middle'>+"+i+"</text>";
-  svg+="<line class='cur' x1='"+X(n)+"' x2='"+X(n)+"' y1='"+PT+"' y2='"+(H-PB)+"'/>";
-  curves.forEach(function(c){
-    svg+="<polyline class='ln' stroke='"+c.k.c+"' points='"+
-      c.pts.map(function(p){return X(p.n)+","+Y(p.v);}).join(" ")+"'/>";
-    var p=c.pts[Math.min(n,c.pts.length-1)];
-    svg+="<circle cx='"+X(p.n)+"' cy='"+Y(p.v)+"' r='4' fill='"+c.k.c+"'/>";
-  });
-  document.getElementById("chart").innerHTML=svg;
-
-  document.getElementById("legend").innerHTML=curves.map(function(c){
-    var p=c.pts[Math.min(n,c.pts.length-1)];
-    return "<li><span class='key' style='background:"+c.k.c+"'></span><span>"+c.k.label+
-      (n>c.pts.length-1?" <span style='color:var(--muted)'>(only "+(c.pts.length-1)+" free)</span>":"")+
-      "</span><span class='k-val'>"+money(p.v,0)+"</span></li>";
-  }).join("");
-}
-
 function renderLedger(a,h){
   var z=function(v){ return Math.abs(v)<.005 ? "&mdash;" : (v<0?"\u2212":"")+money(Math.abs(v)); };
   var rows=[["Gross",a.gross,h.gross,0],["PAYE (incl. ACC)",-a.paye,-h.paye,0],
@@ -729,10 +604,6 @@ document.getElementById("prev").onclick=function(){ shiftFn(-14); };
 document.getElementById("next").onclick=function(){ shiftFn(14); };
 function shiftFn(n){ var d=dateAt(n); S.start=isoOf(d); st.value=S.start; render();
   window.scrollTo({top:0,behavior:"smooth"}); }
-
-var sl=document.getElementById("extra");
-sl.oninput=function(){ S.extra=+sl.value; document.getElementById("extraOut").textContent="+"+sl.value;
-  render(); };
 
 document.getElementById("reset").onclick=function(){
   if(!confirm("Clear every shift and reset the rates?")) return;
