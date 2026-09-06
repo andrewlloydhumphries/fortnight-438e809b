@@ -1,8 +1,8 @@
 # CLAUDE.md
 ## What this is
-A household pay planner for a two-income couple in Dunedin, NZ. One earner is on a
-fixed salary; the other is a nurse on shift work at Te Whatu Ora (Southern) whose pay
-varies enormously with which shifts she picks up. The tool exists to answer one
+A household pay planner for a two-income couple in Dunedin, NZ. Andrew is on a fixed
+salary; Hollie is a nurse on shift work at Te Whatu Ora (Southern) whose pay varies
+enormously with which shifts she picks up. The tool exists to answer one
 question: **which shifts are worth adding, after tax?**
 The whole app is `index.html`. That is not a starting point to be improved on — it is
 the design.
@@ -18,8 +18,9 @@ Do not do any of the following without the owner explicitly asking:
   on the user's own device. Nothing leaves the phone. Keep it that way.
 - **Do not change the numbers in the pay model** to make output "look right". They are
   calibrated against real payslips — see below.
-- **Do not reintroduce names.** The repo is public. Person labels are `Salary` and
-  `Shifts`, not real names.
+- **The names are deliberate.** Person labels are `Andrew` (salary) and `Hollie` (shifts).
+  The owner chose to use first names knowing the repo is public. Don't anonymise them
+  back to `Salary`/`Shifts`; don't add surnames or anything more identifying.
 - The repo must stay **public** — GitHub Pages from a private repo needs a paid plan.
   Don't "helpfully" flip it private and break the deploy.
 ## Architecture
