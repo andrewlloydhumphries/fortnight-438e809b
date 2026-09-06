@@ -359,9 +359,10 @@ function shiftGross(dayIdx, type, halfOpt){
 /* ============ state ============ */
 /* The roster is a bare fortnight: day index 0..13, Monday of week 1 = 0. There are no
    calendar dates, so every map below (shifts, half, stat) is keyed by that index. */
-/* two afternoons and a Saturday night each week -- her usual shape, 0.6 FTE */
+/* two afternoons and a Saturday night each week -- her usual shape; that is 0.6 FTE
+   of work against a 0.4 FTE contract, so a fresh page shows her picking up above base */
 var TEMPLATE = {1:"late",3:"late",5:"night",8:"late",10:"late",12:"night"};
-var DEF = {base:55.04, ph:8, phHalf:4.33, sal:125000, hks:3.5, aks:3.5, asl:false, fte:0.6,
+var DEF = {v:2, base:55.04, ph:8, phHalf:4.33, sal:125000, hks:3.5, aks:3.5, asl:false, fte:0.4,
            shifts:{}, half:{}, stat:{}};
 var S = load();
 
@@ -372,6 +373,9 @@ function load(){
        var r=JSON.parse(raw), o={};
        for(var k in DEF) o[k]=(k in r)?r[k]:(typeof DEF[k]==="object"?{}:DEF[k]);
        if(r.start) migrate(r,o);   /* saved by the earlier dated version of this page */
+       /* v1 saves carried the old 0.6 default; her contract is 0.4. Only touch it if
+          it still equals that default, i.e. was never changed by hand. */
+       if(!("v" in r) && r.fte===0.6) o.fte=0.4;
        return o;
   }catch(e){ return fresh(); }
 }

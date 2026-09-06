@@ -93,8 +93,10 @@ Consequences:
   (`S.stat[idx] = 1`); tapping again clears it.
 - Pay periods still run Monday–Sunday in reality, which is why the grid starts on Mon.
 `load()` still understands saves from the earlier dated version (`start` + ISO-keyed
-maps) and folds that fortnight's 14 days onto indexes 0..13 via `migrate()`. That path
-can be deleted once the owner's phones have loaded the page once after the change.
+maps) and folds that fortnight's 14 days onto indexes 0..13 via `migrate()`. It also
+bumps a saved `fte` of 0.6 to 0.4 when the save predates `v:2` — the contract is 0.4 FTE
+and 0.6 was only ever the old default. Both paths can be deleted once the owner's phones
+have loaded the page once after the change.
 ## Verifying changes
 There is no test runner. Verify two ways, both cheap:
 **1. Regression the pay engine headlessly.** Stub the DOM, load the `<script>` body in
