@@ -56,6 +56,11 @@ Tokens: ink `#3B322C` · muted `#A08F83` · faint `#B3A395` · page `#F3EBE1` ·
 · chip `#FDFAF6` · line `#F0E4D9` · weekend tint `#FBEFE9` · morning `#F0A73C` ·
 afternoon `#2FA192` · night `#6A70CE` · short-on `#5FB8AC` · weekend/holiday/negative
 `#C4527E`. The old blue/purple per-person bars are gone.
+**App icon:** three tilted pills (morning/afternoon/night colours) with a `$`, on the hero
+cream. Source is `icon-512.png` at the repo root; the page inlines a 180px copy for
+`apple-touch-icon` and the favicon and a 192px copy in the manifest (`sips -Z 180/192`,
+base64, percent-encode `+`/`=` for the manifest). The app is named **Fortnite** in the
+`<title>`, `apple-mobile-web-app-title` and manifest — the owner's choice, keep it.
 
 ## The pay model — calibrated, not guessed
 Reverse-engineered from three real payslips (period ending 14 Jun, 28 Jun, 12 Jul 2026).
