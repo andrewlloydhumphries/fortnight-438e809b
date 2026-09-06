@@ -19,6 +19,7 @@
   --ground:#E7ECEF; --card:#fff; --ink:#16232C; --muted:#63788A; --line:#CBD6DD; --grid:#DCE4E9;
   --early:#C8871A; --late:#1F7A7A; --night:#3A3E8C; --stat:#A83250;
   --wknd:#8E3B6B; --wknd-bg:#FBF1F6; --wknd-ln:#E6CBDA;
+  --andrew:#2E6FBF; --hollie:#7B4BB5;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -59,14 +60,15 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
   background:var(--card);border:1px solid var(--line);border-radius:12px;
   padding:16px 14px 14px;margin:14px 0;
 }
-.who{padding-bottom:14px}
+.who{padding-bottom:14px;padding-left:12px;border-left:4px solid var(--grid);border-radius:2px}
+.who.andrew{border-left-color:var(--andrew)} .who.hollie{border-left-color:var(--hollie)}
 .who + .who{border-top:1px solid var(--grid);padding-top:14px}
 .who-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.who-name{font-size:13px;font-weight:600}
+.who-name{font-size:16px;font-weight:600}
 .who-note{font-size:11px;color:var(--muted);text-align:right}
 .who-sub{font-size:11px;color:var(--muted);margin-top:3px;text-align:right}
 .who-sub b{font-weight:600}
-.who-amt{font-size:30px;text-align:right;font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-top:1px}
+.who-amt{font-size:21px;text-align:right;font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-top:1px}
 
 .split{margin-top:10px;border-left:2px solid var(--grid);padding-left:10px;
   display:flex;flex-direction:column;gap:4px}
@@ -181,7 +183,7 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (min-width:520px){
   .day{grid-template-columns:96px repeat(3,minmax(0,1fr))}
-  .who-amt{font-size:38px}
+  .who-amt{font-size:27px}
   .masthead h1{font-size:23px}
   .tot-block.take .tot-row.big b{font-size:42px}
   .summary{padding:20px 18px 16px}
@@ -202,13 +204,13 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
 </div>
 
 <div class="summary" id="summary">
-  <div class="who">
+  <div class="who andrew">
     <div class="who-head"><span class="who-name">Andrew</span><span class="who-note" id="aNote"></span></div>
     <div class="who-amt" id="aAmt">$0</div>
     <div class="who-sub" id="aSub"></div>
   </div>
 
-  <div class="who">
+  <div class="who hollie">
     <div class="who-head"><span class="who-name">Hollie</span><span class="who-note" id="hNote"></span></div>
     <div class="who-amt" id="hAmt">$0</div>
     <div class="who-sub" id="hSub"></div>
