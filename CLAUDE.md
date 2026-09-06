@@ -29,8 +29,9 @@ Single file, four layers, in this order inside `<script>`:
 2. **State** — `S` object, loaded from / saved to `localStorage` key `fortnight`. The
    roster is a bare fortnight: day index 0..13, Monday of week 1 = 0. `shifts`, `half`
    and `stat` are all keyed by that index. There are no calendar dates anywhere.
-3. **Render** — `render()` rebuilds the summary, roster, marginal list, chart and
-   ledger from `S` on every change. Cheap enough; don't optimise it into diffing.
+3. **Render** — `render()` rebuilds the floating bar, summary, roster and ledger from
+   `S` on every change. Cheap enough; don't optimise it into diffing. The floating bar
+   is always visible and flashes the change in fortnight net (`prevNet` / `showDelta()`).
 4. **Wiring** — event handlers at the bottom.
 `render()` recreates the roster DOM each call. Anything transient (the tap animation)
 must be tracked in a variable outside the DOM — see `lastPop`.

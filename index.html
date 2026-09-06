@@ -47,14 +47,23 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
 /* ---- summary ---- */
 .minibar{
   position:fixed;top:0;left:0;right:0;z-index:40;background:var(--ink);color:#fff;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:calc(9px + env(safe-area-inset-top)) 16px 9px;
-  font-size:13px;transform:translateY(-102%);transition:transform .18s ease;
-  box-shadow:0 1px 8px rgba(0,0,0,.16);
+  display:flex;align-items:center;gap:10px;white-space:nowrap;
+  padding:calc(8px + env(safe-area-inset-top)) 14px 8px;
+  font-size:12px;box-shadow:0 1px 8px rgba(0,0,0,.16);
 }
-.minibar.show{transform:translateY(0)}
-.minibar b{font-size:16px;font-weight:700}
-.minibar span{opacity:.72}
+.mb-who{display:flex;align-items:baseline;gap:6px;opacity:.92}
+.mb-who i{width:8px;height:8px;border-radius:2px;background:var(--grid);align-self:center}
+.mb-who.andrew i{background:var(--andrew)} .mb-who.hollie i{background:var(--hollie)}
+.mb-who b{font-size:14px;font-weight:700}
+.mb-tot{display:flex;align-items:baseline;gap:8px;margin-left:auto}
+.mb-tot span{opacity:.72;display:none}
+.mb-tot b{font-size:19px;font-weight:700;letter-spacing:-0.02em}
+.mb-delta{font-style:normal;font-size:12px;font-weight:700;padding:1px 7px;border-radius:10px;
+  background:rgba(255,255,255,.14);transition:opacity .4s}
+.mb-delta.up{color:#8FE3D2} .mb-delta.down{color:#F6A7BC}
+.mb-delta.fade{opacity:0}
+body{padding-top:calc(48px + env(safe-area-inset-top))}
+@media (min-width:520px){ .mb-tot span{display:inline} }
 
 .summary{
   background:var(--card);border:1px solid var(--line);border-radius:12px;
@@ -199,8 +208,10 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
   <div class="rule"><i></i><i></i><i></i></div>
 </header>
 
-<div class="minibar" id="minibar">
-  <span>Into the account</span><b id="miniAmt">$0</b>
+<div class="minibar" id="minibar" aria-live="polite">
+  <span class="mb-who andrew"><i></i>Andrew <b id="miniA">$0</b></span>
+  <span class="mb-who hollie"><i></i>Hollie <b id="miniH">$0</b></span>
+  <span class="mb-tot"><span>Into the account</span><b id="miniAmt">$0</b><em class="mb-delta" id="miniDelta" hidden></em></span>
 </div>
 
 <div class="summary" id="summary">
@@ -444,7 +455,10 @@ function render(){
   document.getElementById("gY").textContent = money(grossFn*26,0);
   document.getElementById("nF").textContent = money(hh,0);
   document.getElementById("nY").textContent = money(hh*26,0);
+  document.getElementById("miniA").textContent = money(a.net,0);
+  document.getElementById("miniH").textContent = money(h.net,0);
   document.getElementById("miniAmt").textContent = money(hh,0);
+  showDelta(hh);
 
   /* roster */
   var host=document.getElementById("roster"); host.innerHTML="";
@@ -473,6 +487,21 @@ function render(){
 }
 
 var lastPop=null;
+/* The floating bar flashes how much the fortnight net just moved. prevNet is the
+   figure from the previous render; module-level for the same reason as lastPop. */
+var prevNet=null, deltaTimer=null;
+function showDelta(net){
+  var d=document.getElementById("miniDelta");
+  if(prevNet!=null && Math.abs(net-prevNet)>=0.5){
+    var up=net>prevNet;
+    d.textContent=(up?"+":"\u2212")+money(Math.abs(net-prevNet),0);
+    d.className="mb-delta "+(up?"up":"down"); d.hidden=false;
+    clearTimeout(deltaTimer);
+    deltaTimer=setTimeout(function(){ d.className+=" fade";
+      deltaTimer=setTimeout(function(){ d.hidden=true; },420); },1500);
+  }
+  prevNet=net;
+}
 /* Long-press state lives here, not in the button's closure: flipHalf() re-renders,
    which destroys the button mid-gesture, and the click the phone synthesises on
    finger-lift lands on the *replacement* button. recentFlip() is how that click,
@@ -569,16 +598,7 @@ document.getElementById("clear").onclick=function(){
   lastPop=null; render();
 };
 
-var mb=document.getElementById("minibar"), sm=document.getElementById("summary");
-function onScroll(){
-  var b = sm.getBoundingClientRect().bottom;
-  if(b < 0) mb.classList.add("show"); else mb.classList.remove("show");
-}
-window.addEventListener("scroll", onScroll, {passive:true});
-window.addEventListener("resize", onScroll, {passive:true});
-
 render();
-onScroll();
 </script>
 </body>
 </html>
