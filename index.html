@@ -66,8 +66,6 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
 .who-note{font-size:11px;color:var(--muted);text-align:right}
 .who-sub{font-size:11px;color:var(--muted);margin-top:3px}
 .who-sub b{font-weight:600}
-.fnlab{font-size:11px;color:var(--muted);margin-bottom:3px}
-.fnrange{font-size:11.5px;color:var(--ink);margin-top:5px;font-weight:500}
 .who-amt{font-size:36px;font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-top:1px}
 
 .split{margin-top:10px;border-left:2px solid var(--grid);padding-left:10px;
@@ -105,19 +103,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
 .clear:active:not(:disabled){transform:scale(.97)}
 .clear:disabled{opacity:.4;cursor:default}
 
-/* ---- fortnight control ---- */
-.fnrow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.fnrow input[type=date]{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;
-  padding:6px 8px;background:#fff;color:var(--ink);min-height:34px}
-.step{display:flex;gap:6px}
-.step button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:6px 12px;
-  font-size:13px;color:var(--muted);min-height:34px;min-width:40px}
-.step button:active{background:var(--ground)}
-
 /* ---- day rows ---- */
 .wklabel{font-size:11px;color:var(--muted);margin:14px 0 6px;display:flex;justify-content:space-between}
 .wklabel span:last-child{font-weight:600;color:var(--ink)}
-.day{display:grid;grid-template-columns:74px repeat(3,minmax(0,1fr));gap:4px;margin-bottom:4px;align-items:stretch}
+.day{display:grid;grid-template-columns:64px repeat(3,minmax(0,1fr));gap:4px;margin-bottom:4px;align-items:stretch}
 .daylab{display:flex;flex-direction:column;justify-content:center;padding:0 6px 0 8px;text-align:left;
   font-size:12px;line-height:1.15;border-radius:9px;transition:background .14s}
 @media (hover:hover){ .daylab:hover{background:var(--ground)} }
@@ -241,26 +230,12 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
 </div>
 
 <div class="card">
-  <div class="fnrow">
-    <div>
-      <div class="fnlab">Which fortnight</div>
-      <input type="date" id="start">
-      <div class="fnrange" id="fnrange"></div>
-    </div>
-    <div class="step">
-      <button id="prev" aria-label="Previous fortnight">&larr;</button>
-      <button id="next" aria-label="Next fortnight">&rarr;</button>
-    </div>
-  </div>
-</div>
-
-<div class="card">
   <div class="card-head">
     <div class="head-row">
       <h2>The roster</h2>
       <button class="clear" id="clear">Clear shifts</button>
     </div>
-    <p class="lede">Tap a shift to add it. Tap the date to mark a public holiday. Hold the Late box to switch
+    <p class="lede">Tap a shift to add it. Tap the day to mark a public holiday. Hold the Late box to switch
       that day to the short 14:40&ndash;19:00 shift. Every box shows what it would gross that day.</p>
   </div>
   <div id="roster"></div>
@@ -322,8 +297,8 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
         rule rests on a single $34.40 line. Worth checking against a payslip with a real Saturday on it.</li>
       <li>The 20:00&ndash;06:00 window fits every line, but 20:00&ndash;08:00 would too if early shifts are
         exempt. If an early ever shows a $13.76 night line, it is the wider window.</li>
-      <li>Public holidays are pre-filled for 2026 and 2027 and can be tapped off. The 2027 Matariki date
-        has conflicting sources &mdash; confirm before relying on it.</li>
+      <li>The roster is a plain Week 1 / Week 2 with no calendar dates, so public holidays are not
+        detected. Tap a day label to mark it as a stat day; tap again to clear it.</li>
       <li>Ignores annual, sick and study leave, overtime past 80 hours a fortnight, on-call and PDRP
         allowances.</li>
     </ul>
@@ -344,18 +319,6 @@ var SHIFTS = {
 var HALF = {label:"Late \u00bd", clock:"14:40-19:00", start:14+40/60, end:19};
 var ORDER = ["early","late","night"];
 var DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-var HOLIDAYS = {
-  "2026-01-01":"New Year","2026-01-02":"Day after","2026-02-06":"Waitangi",
-  "2026-03-23":"Otago Anniv","2026-04-03":"Good Friday","2026-04-06":"Easter Mon",
-  "2026-04-27":"Anzac (obs)","2026-06-01":"King's B'day","2026-07-10":"Matariki",
-  "2026-10-26":"Labour Day","2026-12-25":"Christmas","2026-12-28":"Boxing (obs)",
-  "2027-01-01":"New Year","2027-01-04":"Day after (obs)","2027-02-08":"Waitangi (obs)",
-  "2027-03-22":"Otago Anniv","2027-03-26":"Good Friday","2027-03-29":"Easter Mon",
-  "2027-04-26":"Anzac (obs)","2027-06-07":"King's B'day","2027-06-25":"Matariki",
-  "2027-10-25":"Labour Day","2027-12-27":"Christmas (obs)","2027-12-28":"Boxing (obs)"
-};
 
 var BRACKETS = [[15600,.105],[53500,.175],[78100,.30],[180000,.33],[Infinity,.39]];
 var ACC_RATE = .0175, ACC_CAP = 156641, SL_ANNUAL = 24128, SL_RATE = .12;
@@ -371,7 +334,7 @@ function packet(g,cr,sl,ks){
 function ov(a,b,lo,hi){ return Math.max(0,Math.min(b,hi)-Math.max(a,lo)); }
 
 /* gross for one shift, split hour-by-hour across calendar days */
-function isHalf(i){ return !!S.half[isoAt(i)]; }
+function isHalf(i){ return !!S.half[i]; }
 function paidFor(type,half){ return (type==="late" && half) ? S.phHalf : S.ph; }
 
 function shiftGross(dayIdx, type, halfOpt){
@@ -393,52 +356,48 @@ function shiftGross(dayIdx, type, halfOpt){
 }
 
 /* ============ state ============ */
-var DEF = {base:55.04, ph:8, phHalf:4.33, half:{}, seeded:{}, sal:125000, hks:3.5, aks:3.5, asl:false, fte:0.6,
-           start:null, shifts:{}, statOff:{}, statOn:{}};
+/* The roster is a bare fortnight: day index 0..13, Monday of week 1 = 0. There are no
+   calendar dates, so every map below (shifts, half, stat) is keyed by that index. */
+/* two afternoons and a Saturday night each week -- her usual shape, 0.6 FTE */
+var TEMPLATE = {1:"late",3:"late",5:"night",8:"late",10:"late",12:"night"};
+var DEF = {base:55.04, ph:8, phHalf:4.33, sal:125000, hks:3.5, aks:3.5, asl:false, fte:0.6,
+           shifts:{}, half:{}, stat:{}};
 var S = load();
 
+function fresh(){ var d=Object.assign({},DEF,{shifts:{},half:{},stat:{}});
+  for(var k in TEMPLATE) d.shifts[k]=TEMPLATE[k]; return d; }
 function load(){
-  try{ var r=JSON.parse(localStorage.getItem("fortnight")||"{}");
-       var o={}; for(var k in DEF) o[k]=(k in r)?r[k]:DEF[k];
-       if(!o.start) o.start=isoOf(thisFortnight());
-       else { var q=o.start.split("-"); o.start=isoOf(mondayOf(new Date(+q[0],+q[1]-1,+q[2]))); }
+  try{ var raw=localStorage.getItem("fortnight"); if(!raw) return fresh();
+       var r=JSON.parse(raw), o={};
+       for(var k in DEF) o[k]=(k in r)?r[k]:(typeof DEF[k]==="object"?{}:DEF[k]);
+       if(r.start) migrate(r,o);   /* saved by the earlier dated version of this page */
        return o;
-  }catch(e){ var d=Object.assign({},DEF); d.start=isoOf(thisFortnight()); return d; }
+  }catch(e){ return fresh(); }
+}
+/* Older saves keyed shifts by ISO date and carried the fortnight's start Monday.
+   Fold the 14 days of that fortnight onto indexes 0..13 and drop the rest. */
+function migrate(r,o){
+  var p=r.start.split("-"), y=+p[0], m=+p[1]-1, d=+p[2];
+  o.shifts={}; o.half={}; o.stat={};
+  for(var i=0;i<14;i++){
+    var x=new Date(y,m,d+i);
+    var k=x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");
+    if(r.shifts&&r.shifts[k]) o.shifts[i]=r.shifts[k];
+    if(r.half&&r.half[k])     o.half[i]=1;
+    if(r.statOn&&r.statOn[k]) o.stat[i]=1;
+  }
 }
 function save(){ try{ localStorage.setItem("fortnight", JSON.stringify(S)); }catch(e){} }
-
-/* Her pay fortnights are Monday-Sunday, ending on the Sunday, paid the Wednesday
-   after. The three payslips end 14 Jun, 28 Jun and 12 Jul 2026; +14 four times from
-   12 Jul lands on Sun 6 Sep, so the next fortnight opens Mon 7 Sep 2026. Everything
-   below snaps to that grid -- the off-week is never selectable. */
-function anchor(){ return new Date(2026,8,7); }   /* function, not var: load() runs first */
-function dayNum(d){ return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5); }
-function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); x.setDate(x.getDate()+n); return x; }
-function thisFortnight(){ return mondayOf(addDays(new Date(),1)); }
-function mondayOf(d){ var A=anchor(); return addDays(A, Math.floor((dayNum(d)-dayNum(A))/14)*14); }
-function isoOf(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
-function dateAt(i){ var p=S.start.split("-"); var d=new Date(+p[0],+p[1]-1,+p[2]); d.setDate(d.getDate()+i); return d; }
-function isoAt(i){ return isoOf(dateAt(i)); }
-function isStatIdx(i){ var k=isoAt(i);
-  if(S.statOff[k]) return false; if(S.statOn[k]) return true; return !!HOLIDAYS[k]; }
-function holName(i){ var k=isoAt(i); return S.statOn[k] ? (HOLIDAYS[k]||"Holiday") : (HOLIDAYS[k]||""); }
+function isStatIdx(i){ return !!S.stat[i]; }
 
 var money=function(n,dp){ if(dp===undefined)dp=2;
   return "$"+n.toLocaleString("en-NZ",{minimumFractionDigits:dp,maximumFractionDigits:dp}); };
 
 /* ============ derived ============ */
-/* two afternoons and a Saturday night each week -- her usual shape, 0.6 FTE */
-var TEMPLATE = {1:"late",3:"late",5:"night",8:"late",10:"late",12:"night"};
-function seed(){
-  if(S.seeded[S.start]) return;
-  S.seeded[S.start]=1;
-  for(var k in TEMPLATE){ var iso=isoAt(+k); if(!S.shifts[iso]) S.shifts[iso]=TEMPLATE[k]; }
-}
-
 function grossOf(map){ var t=0; for(var k in map){ var i=+k; if(map[k]) t+=shiftGross(i,map[k]); } return t; }
 function hoursOf(map){ var t=0; for(var k in map){ var i=+k;
   if(map[k]) t+=paidFor(map[k], map[k]==="late"&&isHalf(i)); } return t; }
-function currentMap(){ var m={}; for(var i=0;i<14;i++){ var v=S.shifts[isoAt(i)]; if(v) m[i]=v; } return m; }
+function currentMap(){ var m={}; for(var i=0;i<14;i++){ var v=S.shifts[i]; if(v) m[i]=v; } return m; }
 function hollieOf(g){ return packet(g,true,true,S.hks/100); }
 function andrewPk(){ return packet(S.sal/26,false,S.asl,S.aks/100); }
 /* the contracted floor: FTE x 80 hours a fortnight, worked entirely as the
@@ -448,7 +407,6 @@ function baseGross(){ return baseShifts()*S.ph*S.base; }
 
 /* ============ render ============ */
 function render(){
-  seed();
   var map=currentMap();
   var hg=grossOf(map), h=hollieOf(hg), a=andrewPk(), hh=h.net+a.net;
 
@@ -483,11 +441,6 @@ function render(){
   document.getElementById("nY").textContent = money(hh*26,0);
   document.getElementById("miniAmt").textContent = money(hh,0);
 
-  var d0=dateAt(0), d13=dateAt(13), pay=addDays(d13,3);
-  var dd=function(x){ return DOW[(x.getDay()+6)%7]+" "+x.getDate()+" "+MON[x.getMonth()]; };
-  document.getElementById("fnrange").textContent =
-    dd(d0)+" \u2013 "+dd(d13)+", paid "+dd(pay);
-
   /* roster */
   var host=document.getElementById("roster"); host.innerHTML="";
   for(var w=0;w<2;w++){
@@ -517,17 +470,13 @@ function render(){
 var lastPop=null;
 function dayRow(i,map){
   var row=document.createElement("div"); row.className="day";
-  var dt=dateAt(i), dow=((i%7)+7)%7, we=dow>=5, ph=isStatIdx(i), nm=holName(i);
+  var dow=((i%7)+7)%7, we=dow>=5, ph=isStatIdx(i);
 
   var lab=document.createElement("button");
   lab.className="daylab"+(we?" we":"")+(ph?" ph":"");
-  lab.innerHTML="<b>"+DOW[dow]+" "+dt.getDate()+" "+MON[dt.getMonth()]+"</b>"+
-                (ph?"<i class='ph-tag'>"+(nm||"HOLIDAY").toUpperCase()+"</i>":"");
-  lab.title="Mark as a public holiday";
-  lab.onclick=function(){ var k=isoAt(i);
-    if(isStatIdx(i)){ delete S.statOn[k]; S.statOff[k]=1; }
-    else { delete S.statOff[k]; S.statOn[k]=1; }
-    render(); };
+  lab.innerHTML="<b>"+DOW[dow]+"</b>"+(ph?"<i class='ph-tag'>HOLIDAY</i>":"");
+  lab.title=ph?"Clear the public holiday":"Mark as a public holiday";
+  lab.onclick=function(){ if(S.stat[i]) delete S.stat[i]; else S.stat[i]=1; render(); };
   row.appendChild(lab);
 
   ORDER.forEach(function(t){
@@ -543,14 +492,14 @@ function dayRow(i,map){
     b.title = (half?HALF.clock:SHIFTS[t].clock) +
       (t==="late" ? " \u2014 hold to switch to the short late" : "");
 
-    var toggle=function(){ var k=isoAt(i);
-      if(S.shifts[k]===t) delete S.shifts[k]; else { S.shifts[k]=t; lastPop=i+"|"+t; }
+    var toggle=function(){
+      if(S.shifts[i]===t) delete S.shifts[i]; else { S.shifts[i]=t; lastPop=i+"|"+t; }
       render(); };
 
     if(t==="late"){
       var timer=null, fired=false;
-      var flip=function(){ fired=true; var k=isoAt(i);
-        if(S.half[k]) delete S.half[k]; else S.half[k]=1;
+      var flip=function(){ fired=true;
+        if(S.half[i]) delete S.half[i]; else S.half[i]=1;
         if(navigator.vibrate) try{navigator.vibrate(14);}catch(e){}
         render(); };
       var down=function(){ fired=false; clearTimeout(timer); timer=setTimeout(flip,450); };
@@ -597,23 +546,15 @@ function bindNum(id,key){ var el=document.getElementById(id); el.value=S[key];
 var aslEl=document.getElementById("asl"); aslEl.checked=!!S.asl;
 aslEl.onchange=function(){ S.asl=aslEl.checked; render(); };
 
-var st=document.getElementById("start"); st.value=S.start;
-st.onchange=function(){ var p=st.value.split("-");
-  S.start=isoOf(mondayOf(new Date(+p[0],+p[1]-1,+p[2]))); st.value=S.start; render(); };
-document.getElementById("prev").onclick=function(){ shiftFn(-14); };
-document.getElementById("next").onclick=function(){ shiftFn(14); };
-function shiftFn(n){ var d=dateAt(n); S.start=isoOf(d); st.value=S.start; render();
-  window.scrollTo({top:0,behavior:"smooth"}); }
-
 document.getElementById("reset").onclick=function(){
   if(!confirm("Clear every shift and reset the rates?")) return;
-  S=Object.assign({},DEF,{shifts:{},half:{},seeded:{},statOff:{},statOn:{},start:isoOf(thisFortnight())});
+  S=fresh();
   ["base","ph","phHalf","fte","sal","hks","aks"].forEach(function(k){ document.getElementById(k).value=S[k]; });
-  aslEl.checked=false; st.value=S.start; render();
+  aslEl.checked=false; render();
 };
 
 document.getElementById("clear").onclick=function(){
-  for(var i=0;i<14;i++){ var k=isoAt(i); delete S.shifts[k]; delete S.half[k]; }
+  for(var i=0;i<14;i++){ delete S.shifts[i]; delete S.half[i]; }
   lastPop=null; render();
 };
 

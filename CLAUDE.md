@@ -26,7 +26,9 @@ Do not do any of the following without the owner explicitly asking:
 ## Architecture
 Single file, four layers, in this order inside `<script>`:
 1. **Pay engine** — `shiftGross()`, `paye()`, `packet()`. Pure functions, no DOM.
-2. **State** — `S` object, loaded from / saved to `localStorage` key `fortnight`.
+2. **State** — `S` object, loaded from / saved to `localStorage` key `fortnight`. The
+   roster is a bare fortnight: day index 0..13, Monday of week 1 = 0. `shifts`, `half`
+   and `stat` are all keyed by that index. There are no calendar dates anywhere.
 3. **Render** — `render()` rebuilds the summary, roster, marginal list, chart and
    ledger from `S` on every change. Cheap enough; don't optimise it into diffing.
 4. **Wiring** — event handlers at the bottom.
@@ -75,15 +77,20 @@ do. That is also why the app warns about over-deduction on a lumpy fortnight. Do
 "correct" it to a smoothed annual calculation — it would stop matching payroll.
 These rates change on 1 April. When the 2027–28 year starts, check IRD and update
 `BRACKETS`, `ACC_RATE`, `ACC_CAP`, `SL_ANNUAL`.
-## Fortnight cadence
-Pay periods run Monday–Sunday, paid the following Wednesday. The grid is anchored to
-**Mon 7 Sep 2026** and steps in 14s. Verified: stepping back from the anchor lands on
-6 Sep, 23 Aug, 9 Aug, 26 Jul, and 12 Jul / 28 Jun / 14 Jun 2026 — the exact period-end
-dates on the payslips.
-`mondayOf()` snaps any date onto that grid, so the off-week is unreachable. Day
-arithmetic uses `Date.UTC` day numbers (`dayNum()`) to stay DST-safe — NZ shifts clocks
-in late Sep and early Apr, and naive millisecond subtraction breaks across those.
-Public holidays for 2026 and 2027 are hardcoded in `HOLIDAYS` and can be toggled per day.
+## No calendar — deliberately
+The page models **one generic fortnight**: Week 1 and Week 2, Mon–Sun, no dates. The
+owner removed the date picker, the fortnight-stepping arrows and the hardcoded public
+holiday table on 6 Sep 2026 because the only question is "what will *this* fortnight
+pay", never "plan several periods". Don't bring dates back.
+Consequences:
+- Weekend/weekday is `idx % 7 >= 5`. A Sunday-night shift spills onto index 14, which
+  is treated as a plain weekday (no stat, no weekend) — same as the Monday it would be.
+- Public holidays can't be auto-detected. The user taps a day label to mark a stat day
+  (`S.stat[idx] = 1`); tapping again clears it.
+- Pay periods still run Monday–Sunday in reality, which is why the grid starts on Mon.
+`load()` still understands saves from the earlier dated version (`start` + ISO-keyed
+maps) and folds that fortnight's 14 days onto indexes 0..13 via `migrate()`. That path
+can be deleted once the owner's phones have loaded the page once after the change.
 ## Verifying changes
 There is no test runner. Verify two ways, both cheap:
 **1. Regression the pay engine headlessly.** Stub the DOM, load the `<script>` body in
@@ -110,7 +117,9 @@ Reasoning about CSS without rendering has already produced two shipped bugs here
   `.legend .key`. **Namespace new classes.**
 - **`var` hoisting.** The fortnight anchor was a `var` assigned after `load()` ran, so it
   was `undefined` at startup and the page failed to load cold. It's a function
-  (`anchor()`) now. Watch initialisation order — `S = load()` runs early.
+  (`anchor()`) now — and `anchor()` itself is gone with the calendar, but the lesson
+  stands: `TEMPLATE` is declared *above* `DEF` because `load()` reads it at startup.
+  Watch initialisation order — `S = load()` runs early.
 - **`:first-of-type` on a mixed-element parent.** `.tot-row:first-of-type` matched nothing
   because `.tot-lab` is the first `div` sibling. Use an explicit class (`.big`).
 - **Mixing periods in one line.** A line once read "$7,697 gross · $137,616 a year",
@@ -123,7 +132,6 @@ Reasoning about CSS without rendering has already produced two shipped bugs here
   night line, the window is the wider one** and early shifts are worth more.
 - The **short late** is paid its full 4.33 clock hours with no unpaid break. Unconfirmed.
   If a payslip shows 4.00 or 4.25, change `phHalf`.
-- **Matariki 2027** — sources conflict between 25 Jun and 9 Jul. Currently 25 Jun.
 - Ignores annual/sick/study leave, overtime past 80 hrs/fortnight, on-call, PDRP
   allowances.
 Everything above is also surfaced to the user in the Assumptions panel. Keep that panel
