@@ -12,8 +12,9 @@ Do not do any of the following without the owner explicitly asking:
   thing is one artefact that can be emailed, dropped on any host, or opened from disk.
 - **Do not add a build step, bundler, framework, or package.json.** No React, no Vite,
   no TypeScript, no Tailwind. It is vanilla ES5-flavoured JS and hand-written CSS.
-- **Do not add dependencies.** The only external request is the Archivo webfont from
-  Google Fonts, and the page degrades cleanly to system fonts if it fails.
+- **Do not add dependencies.** The only external request is one Google Fonts stylesheet
+  (Archivo for text, Bricolage Grotesque for the display numbers), and the page degrades
+  cleanly to system fonts if it fails.
 - **Do not add analytics, telemetry, or any network call.** All state is `localStorage`
   on the user's own device. Nothing leaves the phone. Keep it that way.
 - **Do not change the numbers in the pay model** to make output "look right". They are
@@ -29,12 +30,33 @@ Single file, four layers, in this order inside `<script>`:
 2. **State** — `S` object, loaded from / saved to `localStorage` key `fortnight`. The
    roster is a bare fortnight: day index 0..13, Monday of week 1 = 0. `shifts`, `half`
    and `stat` are all keyed by that index. There are no calendar dates anywhere.
-3. **Render** — `render()` rebuilds the floating bar, summary, roster and ledger from
+3. **Render** — `render()` rebuilds the floating bar, hero card, roster and ledger from
    `S` on every change. Cheap enough; don't optimise it into diffing. The floating bar
    is always visible and flashes the change in fortnight net (`prevNet` / `showDelta()`).
 4. **Wiring** — event handlers at the bottom.
 `render()` recreates the roster DOM each call. Anything transient (the tap animation)
 must be tracked in a variable outside the DOM — see `lastPop`.
+## Look and feel — the "Scrubs" redesign (6 Sep 2026)
+The owner supplied a high-fidelity handoff and it was implemented as a re-skin: warm
+palette, Bricolage Grotesque display type, one hero card, collapsed breakdowns. The
+tokens live in `:root`; don't hardcode colours elsewhere. Page order, top to bottom:
+1. **Floating bar** — fixed, ink `#3B322C`, always visible: Andrew net · Hollie net · total.
+2. **Hero card** (`.hero`) — static headline "Nice fortnight, Hollie."; her **gross** as the
+   big number with `before tax · $X after · N shifts` under it; an **uplift sticker** (net
+   above / short of the contracted base; hidden when within $1); an **FTE bar** where 1.4
+   FTE fills the track and the dark tick is the contract; an **account panel** with both
+   nets, the combined net as the headline figure, and the annualised line.
+   Andrew's gross and salary appear only in the "Where it goes" table now.
+3. **Roster card** — unchanged mechanics; chips are 15px-radius, day label column 40px
+   (64px ≥520px) so the public-holiday tag reads `STAT`, not `HOLIDAY`. The instruction
+   line sits *under* the tally as `.hint`.
+4. **"Where it goes"** and **"Assumptions & rates"** — `<details class="fold">`, both closed
+   by default. No JS.
+Tokens: ink `#3B322C` · muted `#A08F83` · faint `#B3A395` · page `#F3EBE1` · hero `#FBF4EC`
+· chip `#FDFAF6` · line `#F0E4D9` · weekend tint `#FBEFE9` · morning `#F0A73C` ·
+afternoon `#2FA192` · night `#6A70CE` · short-on `#5FB8AC` · weekend/holiday/negative
+`#C4527E`. The old blue/purple per-person bars are gone.
+
 ## The pay model — calibrated, not guessed
 Reverse-engineered from three real payslips (period ending 14 Jun, 28 Jun, 12 Jul 2026).
 Every rule below reproduces those payslips to the cent. If you change one, re-run the

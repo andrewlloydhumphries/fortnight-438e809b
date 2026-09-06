@@ -4,22 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fortnightly Pay Calculator</title>
-<meta name="theme-color" content="#16232C">
+<meta name="theme-color" content="#3B322C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fortnight">
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY+zV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB+n81AvYkXdvPx4/5O7++vghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6+vzlh6vjhzzc3B4/5FnY0c0xpIyBc+a3lzjGnuhO+thFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59+HD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY+aftbo6xfTx22tg+Hjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8+IHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9+/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU+YAAAAABJRU5ErkJggg==">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY+zV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB+n81AvYkXdvPx4/5O7++vghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6+vzlh6vjhzzc3B4/5FnY0c0xpIyBc+a3lzjGnuhO+thFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59+HD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY+aftbo6xfTx22tg+Hjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8+IHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9+/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU+YAAAAABJRU5ErkJggg==">
-<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22Fortnightly%20Pay%20Calculator%22%2C%20%22short_name%22%3A%20%22Fortnight%22%2C%20%22start_url%22%3A%20%22./%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%23E7ECEF%22%2C%20%22theme_color%22%3A%20%22%2316232C%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY%2BzV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB%2Bn81AvYkXdvPx4/5O7%2B%2BvghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6%2Bvzlh6vjhzzc3B4/5FnY0c0xpIyBc%2Ba3lzjGnuhO%2BthFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59%2BHD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY%2Baftbo6xfTx22tg%2BHjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8%2BIHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9%2B/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU%2BYAAAAABJRU5ErkJggg%3D%3D%22%2C%20%22sizes%22%3A%20%22180x180%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%22%7D%5D%7D">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22Fortnightly%20Pay%20Calculator%22%2C%20%22short_name%22%3A%20%22Fortnight%22%2C%20%22start_url%22%3A%20%22./%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%23F3EBE1%22%2C%20%22theme_color%22%3A%20%22%233B322C%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvElEQVR4nO3dsW0UQRiA0TVyQkqAkAhN6B7owCkpAUVQAkUQOHXqDujDqSUiUqeEIMEHZ9/s3lj7XgH/jmY%2BzV6w0p29vrhc4G9enHoBzEscJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB%2Bn81AvYkXdvPx4/5O7%2B%2BvghB3JzbGRIGQPnHEIcWxh7opv1IY7VrXGW2/QhDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SPv6%2Bvzlh6vjhzzc3B4/5FnY0c0xpIyBc%2Ba3lzjGnuhO%2BthFHGuc5R762EUcPI04SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYO09Tekt59%2BHD/k6uur44fwX5veHEPKGDiHf9sujrEnqo8NbBTHGmepj7X5QUoSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQNopjjX9lO3zmw83t8KcfPvPu/nr409eY%2Baftbo6xfTx22tg%2BHjtt7FluU8ay8WtlVB9PmzOqj6fNGXWim5WxLMvZ64vLzR7G8%2BIHKUkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEE6P/UCfvn85v2plzCLL9%2B/nXoJyzLPzaGM302yG1PEMcleTGWGPZkiDuY0RRyTvGKnMsOeTBHHMsdezGOS3fCZIGmWm4MJiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg/QR2YVCd0BU%2BYAAAAABJRU5ErkJggg%3D%3D%22%2C%20%22sizes%22%3A%20%22180x180%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%22%7D%5D%7D">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Bricolage+Grotesque:wght@600;800&display=swap');
 
 :root{
-  --ground:#E7ECEF; --card:#fff; --ink:#16232C; --muted:#63788A; --line:#CBD6DD; --grid:#DCE4E9;
-  --early:#C8871A; --late:#1F7A7A; --night:#3A3E8C; --stat:#A83250;
-  --wknd:#8E3B6B; --wknd-bg:#FBF1F6; --wknd-ln:#E6CBDA;
-  --andrew:#2E6FBF; --hollie:#7B4BB5;
+  --ground:#F3EBE1; --hero:#FBF4EC; --card:#fff; --chip:#FDFAF6;
+  --ink:#3B322C; --muted:#A08F83; --faint:#B3A395; --foot:#9A927C; --daylab:#4A3F3A;
+  --line:#F0E4D9; --wknd-bg:#FBEFE9;
+  --early:#F0A73C; --late:#2FA192; --night:#6A70CE; --half-on:#5FB8AC;
+  --stat:#C4527E; --pos:#2FA192;
+  --shadow:0 2px 10px rgba(59,50,44,.06);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -27,33 +29,23 @@ body{
   font-family:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
   font-variant-numeric:tabular-nums;
   background:var(--ground); color:var(--ink); line-height:1.5;
-  padding:0 12px calc(48px + env(safe-area-inset-bottom));
+  padding:calc(48px + env(safe-area-inset-top)) 12px calc(48px + env(safe-area-inset-bottom));
   -webkit-text-size-adjust:100%;
 }
 .wrap{max-width:640px;margin:0 auto}
-h1,h2,h3{margin:0;font-weight:600;letter-spacing:-0.015em}
+h1,h2,h3{margin:0}
 p{margin:0}
+.display{font-family:'Bricolage Grotesque','Archivo',ui-sans-serif,system-ui,sans-serif;font-weight:800;letter-spacing:-0.02em}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
-button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-offset:2px}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--night);outline-offset:2px}
 
-.masthead{padding:calc(18px + env(safe-area-inset-top)) 0 0}
-.masthead h1{font-size:19px;font-weight:600;line-height:1.2;letter-spacing:-0.02em}
-.rule{display:flex;gap:3px;margin-top:9px}
-.rule i{height:3px;border-radius:2px}
-.rule i:nth-child(1){width:26px;background:var(--early)}
-.rule i:nth-child(2){width:26px;background:var(--late)}
-.rule i:nth-child(3){width:26px;background:var(--night)}
-
-/* ---- summary ---- */
+/* ---- floating bar ---- */
 .minibar{
   position:fixed;top:0;left:0;right:0;z-index:40;background:var(--ink);color:#fff;
-  display:flex;align-items:center;gap:10px;white-space:nowrap;
-  padding:calc(8px + env(safe-area-inset-top)) 14px 8px;
-  font-size:12px;box-shadow:0 1px 8px rgba(0,0,0,.16);
+  display:flex;align-items:baseline;gap:12px;white-space:nowrap;
+  padding:calc(9px + env(safe-area-inset-top)) 14px 9px;font-size:12px;
 }
-.mb-who{display:flex;align-items:baseline;gap:6px;opacity:.92}
-.mb-who i{width:8px;height:8px;border-radius:2px;background:var(--grid);align-self:center}
-.mb-who.andrew i{background:var(--andrew)} .mb-who.hollie i{background:var(--hollie)}
+.mb-who{display:flex;align-items:baseline;gap:5px;opacity:.92}
 .mb-who b{font-size:14px;font-weight:700}
 .mb-tot{display:flex;align-items:baseline;gap:8px;margin-left:auto}
 .mb-tot span{opacity:.72;display:none}
@@ -62,101 +54,91 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
   background:rgba(255,255,255,.14);transition:opacity .4s}
 .mb-delta.up{color:#8FE3D2} .mb-delta.down{color:#F6A7BC}
 .mb-delta.fade{opacity:0}
-body{padding-top:calc(48px + env(safe-area-inset-top))}
-@media (min-width:520px){ .mb-tot span{display:inline} }
 
-.summary{
-  background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:16px 14px 14px;margin:14px 0;
-}
-.who{padding-bottom:14px;padding-left:12px;border-left:4px solid var(--grid);border-radius:2px}
-.who.andrew{border-left-color:var(--andrew)} .who.hollie{border-left-color:var(--hollie)}
-.who + .who{border-top:1px solid var(--grid);padding-top:14px}
-.who-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.who-name{font-size:16px;font-weight:600}
-.who-note{font-size:11px;color:var(--muted);text-align:right}
-.who-sub{font-size:11px;color:var(--muted);margin-top:3px;text-align:right}
-.who-sub b{font-weight:600}
-.who-amt{font-size:21px;text-align:right;font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-top:1px}
+/* ---- hero ---- */
+.hero{background:var(--hero);border-radius:34px;padding:22px 18px 18px;margin-top:14px}
+.hero-hi{font-size:22px;line-height:1.2;color:var(--ink)}
+.hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:12px}
+.hero-num{font-size:46px;line-height:1}
+.hero-sub{font-size:12px;font-weight:500;color:var(--muted);margin-top:4px}
+.sticker{color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:16px 16px 16px 4px;
+  white-space:nowrap;flex:none;margin-bottom:6px}
+.sticker.up{background:var(--pos);transform:rotate(3deg);box-shadow:0 4px 12px rgba(47,161,146,.35)}
+.sticker.down{background:var(--stat);transform:rotate(-3deg);box-shadow:0 4px 12px rgba(196,82,126,.35)}
+.fte{margin-top:16px}
+.fte-lab{display:flex;justify-content:space-between;gap:10px;font-size:11px;font-weight:600;color:var(--muted)}
+.fte-e{color:var(--pos)} .fte-e.short{color:var(--stat)}
+.fte-track{position:relative;height:12px;border-radius:99px;background:var(--line);margin-top:6px}
+.fte-fill{position:absolute;inset:0;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--early),var(--late));transition:width .25s}
+.fte-mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);border-radius:2px}
+.acct{background:var(--card);border-radius:22px;padding:14px 16px;margin-top:16px}
+.acct-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13px;font-weight:500;padding:3px 0}
+.acct-row span{color:var(--muted)} .acct-row b{font-weight:700}
+.acct-tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  border-top:2px dashed var(--line);margin-top:8px;padding-top:10px}
+.acct-tot span{font-size:13px;font-weight:600}
+.acct-tot b{font-size:30px;line-height:1.1}
+.acct-yr{text-align:right;font-size:11px;font-weight:500;color:var(--muted);margin-top:2px}
 
-.split{margin-top:10px;border-left:2px solid var(--grid);padding-left:10px;
-  display:flex;flex-direction:column;gap:4px}
-.srow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12px}
-.srow span{color:var(--muted)}
-.srow b{font-weight:600;white-space:nowrap}
-.srow .made{display:block;font-size:10.5px;opacity:.8}
-.srow.up b{color:var(--late)}
-.srow.down b{color:var(--stat)}
-
-.totals{border-top:2px solid var(--ink);margin-top:2px}
-.tot-block{padding:12px 0}
-.tot-block:last-child{padding-bottom:2px}
-.tot-block + .tot-block{border-top:1px solid var(--grid)}
-.tot-lab{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
-.tot-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
-  font-size:12.5px;padding:1px 0}
-.tot-row span{color:var(--muted)}
-.tot-row b{font-weight:600;font-size:15px}
-.tot-block.take .tot-lab{color:var(--ink)}
-.tot-block.take .tot-row b{font-weight:700}
-.tot-block.take .tot-row.big{padding:2px 0 3px}
-.tot-block.take .tot-row.big b{font-size:34px;letter-spacing:-0.025em;line-height:1.05}
-
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 14px;margin-bottom:14px}
-.card h2{font-size:15.5px}
-.card .lede{color:var(--muted);font-size:12.5px;margin-top:4px}
-.card-head{margin-bottom:12px}
+/* ---- roster card ---- */
+.card{background:var(--card);border-radius:34px;padding:20px 18px;margin-top:12px;box-shadow:var(--shadow)}
 .head-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.clear{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--muted);
-  font-size:12px;padding:7px 12px;min-height:34px;white-space:nowrap;
-  transition:border-color .12s,color .12s,background .12s}
-.clear:hover:not(:disabled){border-color:var(--stat);color:var(--stat);background:#FDF4F6}
+.card h2{font-size:18px}
+.clear{font-size:12px;font-weight:600;color:var(--stat);background:var(--wknd-bg);border-radius:99px;
+  padding:6px 13px;white-space:nowrap;transition:transform .1s,opacity .12s}
 .clear:active:not(:disabled){transform:scale(.97)}
 .clear:disabled{opacity:.4;cursor:default}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
 
 /* ---- day rows ---- */
-.wklabel{font-size:11px;color:var(--muted);margin:14px 0 6px;display:flex;justify-content:space-between}
-.wklabel span:last-child{font-weight:600;color:var(--ink)}
-.day{display:grid;grid-template-columns:64px repeat(3,minmax(0,1fr));gap:4px;margin-bottom:4px;align-items:stretch}
-.daylab{display:flex;flex-direction:column;justify-content:center;padding:0 6px 0 8px;text-align:left;
-  font-size:12px;line-height:1.15;border-radius:9px;transition:background .14s}
-@media (hover:hover){ .daylab:hover{background:var(--ground)} }
-.daylab b{font-weight:600}
-.daylab i{font-style:normal;color:var(--muted);font-size:11px}
-.daylab.we b{color:var(--wknd)}
-.daylab.ph{background:var(--stat);color:#fff;box-shadow:0 2px 8px rgba(168,50,80,.3)}
-.daylab.ph i,.daylab.ph b{color:#fff}
-.ph-tag{font-size:9.5px;font-weight:700;letter-spacing:.04em}
+.wklabel{display:flex;justify-content:space-between;margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--muted)}
+.wklabel span:last-child{color:var(--pos)}
+.day{display:grid;grid-template-columns:40px repeat(3,minmax(0,1fr));gap:7px;margin-bottom:7px;align-items:stretch}
+.daylab{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 3px;
+  text-align:left;font-size:13px;font-weight:700;color:var(--daylab);line-height:1.15;border-radius:12px;
+  transition:background .14s,color .14s}
+@media (hover:hover){ .daylab:hover{background:var(--chip)} }
+.daylab b{font-weight:700}
+.daylab i{font-style:normal;font-size:9px;letter-spacing:.06em;font-weight:700}
+.daylab.we{color:var(--stat)}
+.daylab.ph{background:var(--stat);color:#fff;padding:0 5px;box-shadow:0 3px 10px rgba(196,82,126,.3)}
 
-.sh{border:1px solid var(--grid);background:#fff;border-radius:10px;min-height:48px;
+.sh{border:1.5px solid var(--line);background:var(--chip);border-radius:15px;min-height:48px;padding:8px 0;
   -webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-  font-size:12px;color:var(--muted);
-  transition:background .14s,color .14s,border-color .14s,box-shadow .14s,transform .1s}
-@media (hover:hover){ .sh:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(22,35,44,.09)} }
+  font-size:13px;font-weight:500;color:var(--faint);
+  transition:background .14s,color .14s,border-color .14s,box-shadow .14s,transform .1s,opacity .14s}
+@media (hover:hover){ .sh:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(59,50,44,.09)} }
 .sh:active{transform:scale(.97)}
-.sh em{font-style:normal;font-size:9.5px;letter-spacing:.03em;opacity:.75}
-.sh.we{background:var(--wknd-bg);border-color:var(--wknd-ln)}
-.sh.on{color:#fff;border-color:transparent;font-weight:700;
-  background-image:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.07))}
-.sh.on.early{box-shadow:0 3px 10px rgba(200,135,26,.36)}
-.sh.on.late {box-shadow:0 3px 10px rgba(31,122,122,.36)}
-.sh.on.night{box-shadow:0 3px 10px rgba(58,62,140,.36)}
-.sh.on.ph   {box-shadow:0 3px 10px rgba(168,50,80,.36)}
+.sh em{font-style:normal;font-size:9px;letter-spacing:.06em;opacity:.8}
+.sh.we{background:var(--wknd-bg)}
+.sh.on{color:#fff;border-color:transparent;font-weight:700}
+.sh.on.early{background:var(--early);box-shadow:0 3px 10px rgba(240,167,60,.4)}
+.sh.on.late {background:var(--late); box-shadow:0 3px 10px rgba(47,161,146,.4)}
+.sh.on.night{background:var(--night);box-shadow:0 3px 10px rgba(106,112,206,.4)}
+.sh.half{border-style:dashed}
+.sh.on.half{background:var(--half-on);border-style:solid;
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.16) 0 5px,transparent 5px 10px)}
+.sh.on.ph{background:var(--stat);box-shadow:0 3px 10px rgba(196,82,126,.4)}
+.sh.dim{opacity:.45}
 @keyframes pop{0%{transform:scale(.90)}55%{transform:scale(1.04)}100%{transform:scale(1)}}
 .sh.pop{animation:pop .26s cubic-bezier(.34,1.4,.5,1)}
-.sh.on em{opacity:.85}
-.sh.on.early{background:var(--early)} .sh.on.late{background:var(--late)}
-.sh.half{border-style:dashed}
-.sh.on.half{background:#4FA3A3;border-style:solid;
-  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.16) 0 5px,transparent 5px 10px)} .sh.on.night{background:var(--night)}
-.sh.on.we{box-shadow:inset 0 0 0 2px var(--wknd)}
-.sh.on.ph{background:var(--stat)}
-.sh.dim{opacity:.32}
 
-.tally{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);
-  margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
-.tally b{color:var(--ink);font-weight:600}
+.tally{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:500;color:var(--muted);margin-top:10px}
+.tally b{color:var(--ink);font-weight:700}
+
+/* ---- collapsed rows: where it goes, assumptions ---- */
+.fold{background:var(--card);border-radius:22px;box-shadow:var(--shadow);margin-top:12px}
+.fold + .fold{margin-top:8px}
+.fold summary{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;
+  font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;list-style:none}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary .mut{color:var(--muted);font-weight:500}
+.fold.soft summary{color:var(--muted)}
+.chev{font-style:normal;color:var(--muted);display:inline-block;transition:transform .15s}
+.fold[open] .chev{transform:rotate(90deg)}
+.fold-body{padding:0 18px 18px}
 
 /* ---- ledger ---- */
 table.led{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -172,30 +154,26 @@ table.led{width:100%;border-collapse:collapse;font-size:12.5px}
 .note{font-size:11.5px;color:var(--muted);margin-top:12px}
 
 /* ---- assumptions ---- */
-details summary{font-size:12.5px;color:var(--muted);cursor:pointer;list-style:none;
-  text-decoration:underline;text-underline-offset:3px;padding:2px 0}
-details summary::-webkit-details-marker{display:none}
-.fields{display:flex;flex-wrap:wrap;gap:12px 16px;margin:14px 0 4px}
+.fields{display:flex;flex-wrap:wrap;gap:12px 16px;margin:6px 0 4px}
 .field{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--muted)}
-.field .in{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 7px}
+.field .in{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:var(--chip);padding:0 7px}
 .field i{font-style:normal;font-size:12.5px}
 .field input{border:none;padding:7px 2px;width:86px;font:inherit;font-size:13px;background:none;
   color:var(--ink);font-variant-numeric:tabular-nums}
-.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-top:10px}
 .notes{margin:6px 0 0;padding-left:16px;font-size:11.5px;color:var(--muted)}
 .notes li{margin-bottom:6px}
 .notes b{color:var(--ink);font-weight:600}
-h3.sub{font-size:12.5px;margin:16px 0 5px}
-.reset{border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12.5px;
-  color:var(--muted);background:#fff;width:100%;min-height:40px;margin-top:16px}
-.foot{font-size:11px;color:var(--muted);text-align:center;padding:18px 0 4px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+h3.sub{font-size:12.5px;font-weight:600;margin:16px 0 5px}
+.reset{border:1.5px solid var(--line);border-radius:14px;padding:9px 14px;font-size:12.5px;
+  color:var(--muted);background:var(--chip);width:100%;min-height:40px;margin-top:16px}
+.foot{font-size:11px;color:var(--foot);text-align:center;padding:14px 0 4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media (min-width:520px){
-  .day{grid-template-columns:96px repeat(3,minmax(0,1fr))}
-  .who-amt{font-size:27px}
-  .masthead h1{font-size:23px}
-  .tot-block.take .tot-row.big b{font-size:42px}
-  .summary{padding:20px 18px 16px}
+  .mb-tot span{display:inline}
+  .day{grid-template-columns:64px repeat(3,minmax(0,1fr))}
+  .hero-num{font-size:54px}
+  .hero,.card{padding-left:22px;padding-right:22px}
   body{padding-left:16px;padding-right:16px}
 }
 </style>
@@ -203,70 +181,57 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
 <body>
 <div class="wrap">
 
-<header class="masthead">
-  <h1>Fortnightly Pay Calculator</h1>
-  <div class="rule"><i></i><i></i><i></i></div>
-</header>
-
 <div class="minibar" id="minibar" aria-live="polite">
-  <span class="mb-who andrew"><i></i>Andrew <b id="miniA">$0</b></span>
-  <span class="mb-who hollie"><i></i>Hollie <b id="miniH">$0</b></span>
+  <span class="mb-who">Andrew <b id="miniA">$0</b></span>
+  <span class="mb-who">Hollie <b id="miniH">$0</b></span>
   <span class="mb-tot"><span>Into the account</span><b id="miniAmt">$0</b><em class="mb-delta" id="miniDelta" hidden></em></span>
 </div>
 
-<div class="summary" id="summary">
-  <div class="who andrew">
-    <div class="who-head"><span class="who-name">Andrew</span><span class="who-note" id="aNote"></span></div>
-    <div class="who-amt" id="aAmt">$0</div>
-    <div class="who-sub" id="aSub"></div>
-  </div>
-
-  <div class="who hollie">
-    <div class="who-head"><span class="who-name">Hollie</span><span class="who-note" id="hNote"></span></div>
-    <div class="who-amt" id="hAmt">$0</div>
-    <div class="who-sub" id="hSub"></div>
-    <div class="split" id="hSplit"></div>
-  </div>
-
-  <div class="totals">
-    <div class="tot-block">
-      <div class="tot-lab">Gross</div>
-      <div class="tot-row"><span>This fortnight</span><b id="gF">$0</b></div>
-      <div class="tot-row"><span>A year</span><b id="gY">$0</b></div>
+<section class="hero" id="summary">
+  <h1 class="hero-hi display">Nice fortnight, Hollie.</h1>
+  <div class="hero-row">
+    <div>
+      <div class="hero-num display" id="hGross">$0</div>
+      <div class="hero-sub" id="hSub"></div>
     </div>
-    <div class="tot-block take">
-      <div class="tot-lab">Into the account</div>
-      <div class="tot-row big"><span>This fortnight</span><b id="nF">$0</b></div>
-      <div class="tot-row"><span>A year</span><b id="nY">$0</b></div>
-    </div>
+    <div class="sticker" id="sticker" hidden></div>
   </div>
-</div>
+  <div class="fte">
+    <div class="fte-lab"><span id="fteC">Contract</span><span class="fte-e" id="fteE"></span></div>
+    <div class="fte-track"><div class="fte-fill" id="fteFill"></div><div class="fte-mark" id="fteMark"></div></div>
+  </div>
+  <div class="acct">
+    <div class="acct-row"><span>Hollie after tax</span><b id="hAmt">$0</b></div>
+    <div class="acct-row"><span>Andrew after tax</span><b id="aAmt">$0</b></div>
+    <div class="acct-tot"><span>Into the account</span><b class="display" id="nF">$0</b></div>
+    <div class="acct-yr" id="nY"></div>
+  </div>
+</section>
 
 <div class="card">
-  <div class="card-head">
-    <div class="head-row">
-      <h2>The roster</h2>
-      <button class="clear" id="clear">Clear shifts</button>
-    </div>
-    <p class="lede">Tap a shift to add it. Tap the day to mark a public holiday. Hold the Afternoon box to switch
-      that day to the short 14:40&ndash;19:00 shift. Every box shows what it would gross that day.</p>
+  <div class="head-row">
+    <h2 class="display">The roster</h2>
+    <button class="clear" id="clear">Clear</button>
   </div>
   <div id="roster"></div>
   <div class="tally" id="tally"></div>
+  <p class="hint">Tap to add a shift &middot; tap the day for a public holiday &middot; hold Afternoon for the short 14:40&ndash;19:00.</p>
 </div>
 
-<div class="card">
-  <div class="card-head"><h2>Where it goes</h2></div>
-  <table class="led">
-    <thead><tr><th></th><th>Andrew</th><th>Hollie</th><th class="tot">Together</th></tr></thead>
-    <tbody id="led"></tbody>
-  </table>
-  <p class="note" id="ksnote"></p>
-</div>
+<details class="fold">
+  <summary><span>Where it goes <span class="mut">&middot; the taxman&rsquo;s cut</span></span><i class="chev">&#9656;</i></summary>
+  <div class="fold-body">
+    <table class="led">
+      <thead><tr><th></th><th>Andrew</th><th>Hollie</th><th class="tot">Together</th></tr></thead>
+      <tbody id="led"></tbody>
+    </table>
+    <p class="note" id="ksnote"></p>
+  </div>
+</details>
 
-<div class="card">
-  <details id="ass">
-    <summary>Assumptions, rates and where they came from</summary>
+<details class="fold soft" id="ass">
+  <summary><span>Assumptions &amp; rates</span><i class="chev">&#9656;</i></summary>
+  <div class="fold-body">
     <div class="fields">
       <label class="field"><span>Base rate</span><span class="in"><i>$</i><input type="number" id="base" step="0.01"></span></label>
       <label class="field"><span>Paid hours / shift</span><span class="in"><input type="number" id="ph" step="0.25"></span></label>
@@ -315,8 +280,8 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
         allowances.</li>
     </ul>
     <button class="reset" id="reset">Clear the roster and start again</button>
-  </details>
-</div>
+  </div>
+</details>
 
 <p class="foot">Saved on this phone only. Nothing leaves the device.</p>
 </div>
@@ -426,35 +391,32 @@ function render(){
   var map=currentMap();
   var hg=grossOf(map), h=hollieOf(hg), a=andrewPk(), hh=h.net+a.net;
 
-  var bg=baseGross(), bnet=hollieOf(bg).net, uplift=h.net-bnet, nb=baseShifts();
-
-  document.getElementById("aNote").textContent = money(a.gross,0)+" gross";
-  document.getElementById("aAmt").textContent  = money(a.net,0);
-  document.getElementById("aSub").innerHTML    = "after tax \u00b7 "+money(S.sal,0)+" a year, fixed";
-
+  /* uplift = her net against the contracted floor (S.fte x 80 hrs of weekday mornings) */
+  var bnet=hollieOf(baseGross()).net, uplift=h.net-bnet;
   var n=Object.keys(map).length, hrs=hoursOf(map), efte=hrs/80;
-  document.getElementById("hNote").textContent = money(hg,0)+" gross";
-  document.getElementById("hAmt").textContent  = money(h.net,0);
-  document.getElementById("hSub").innerHTML =
-    "after tax \u00b7 "+n+" shift"+(n===1?"":"s")+" \u00b7 "+(hrs%1?hrs.toFixed(2):hrs)+" hrs \u00b7 "+
-    "<b style='color:"+(efte>=S.fte?"var(--late)":"var(--stat)")+"'>"+efte.toFixed(2)+" FTE</b>";
 
-  var flat = Math.abs(uplift) < 0.5, up = uplift >= 0;
-  document.getElementById("hSplit").innerHTML =
-    "<div class='srow'><span>"+S.fte.toFixed(2).replace(/0$/,"")+" FTE base"+
-      "<span class='made'>"+nb+" weekday mornings, "+(nb*S.ph).toFixed(0)+" hrs, no loadings</span></span>"+
-      "<b>"+money(bnet,0)+"</b></div>"+
-    "<div class='srow "+(flat?"":(up?"up":"down"))+"'><span>"+
-      (flat?"Exactly at base":(up?"Picked up above base":"Short of base"))+
-      "<span class='made'>"+(flat?"no loadings, no extra hours":
-        (up?"better shifts and extra hours":"fewer hours than contracted"))+"</span></span>"+
-      "<b>"+(flat?"":(up?"+":"\u2212"))+money(Math.abs(uplift),0)+"</b></div>";
+  document.getElementById("hGross").textContent = money(hg,0);
+  document.getElementById("hSub").textContent =
+    "before tax \u00b7 "+money(h.net,0)+" after \u00b7 "+n+" shift"+(n===1?"":"s");
 
-  var grossFn = a.gross + hg;
-  document.getElementById("gF").textContent = money(grossFn,0);
-  document.getElementById("gY").textContent = money(grossFn*26,0);
-  document.getElementById("nF").textContent = money(hh,0);
-  document.getElementById("nY").textContent = money(hh*26,0);
+  var st=document.getElementById("sticker");
+  if(uplift>=1){       st.hidden=false; st.className="sticker up";   st.textContent="+"+money(uplift,0)+" above base"; }
+  else if(uplift<=-1){ st.hidden=false; st.className="sticker down"; st.textContent="\u2212"+money(-uplift,0)+" short of base"; }
+  else st.hidden=true;
+
+  /* FTE bar: 1.4 FTE fills it; the dark tick is the contract */
+  var FULL=1.4, pct=function(v){ return (Math.min(v/FULL,1)*100).toFixed(1)+"%"; };
+  document.getElementById("fteC").textContent = "Contract "+S.fte.toFixed(2).replace(/0$/,"")+" FTE";
+  var fe=document.getElementById("fteE");
+  fe.textContent = "This fortnight "+efte.toFixed(2)+" FTE";
+  fe.className = "fte-e"+(efte<S.fte?" short":"");
+  document.getElementById("fteFill").style.width = pct(efte);
+  document.getElementById("fteMark").style.left  = pct(S.fte);
+
+  document.getElementById("hAmt").textContent = money(h.net,0);
+  document.getElementById("aAmt").textContent = money(a.net,0);
+  document.getElementById("nF").textContent   = money(hh,0);
+  document.getElementById("nY").textContent   = "that\u2019s "+money(hh*26,0)+" a year";
   document.getElementById("miniA").textContent = money(a.net,0);
   document.getElementById("miniH").textContent = money(h.net,0);
   document.getElementById("miniAmt").textContent = money(hh,0);
@@ -472,13 +434,11 @@ function render(){
 
   var clr=document.getElementById("clear");
   clr.disabled = (n===0);
-  clr.textContent = n===0 ? "No shifts planned" : "Clear shifts";
+  clr.textContent = n===0 ? "No shifts planned" : "Clear";
 
   document.getElementById("tally").innerHTML =
-    "<span><b>"+n+"</b> shift"+(n===1?"":"s")+"</span>"+
-    "<span><b>"+hrs.toFixed(2)+"</b> paid hours</span>"+
-    "<span><b>"+(hrs/80).toFixed(2)+"</b> FTE</span>"+
-    "<span><b>"+money(hg)+"</b> gross</span>";
+    "<span>"+n+" shift"+(n===1?"":"s")+" \u00b7 "+(hrs%1?hrs.toFixed(2):hrs)+" hrs \u00b7 </span>"+
+    "<b>"+money(hg,0)+" before tax</b>";
 
   lastPop=null;
 
@@ -520,7 +480,7 @@ function dayRow(i,map){
 
   var lab=document.createElement("button");
   lab.className="daylab"+(we?" we":"")+(ph?" ph":"");
-  lab.innerHTML="<b>"+DOW[dow]+"</b>"+(ph?"<i class='ph-tag'>HOLIDAY</i>":"");
+  lab.innerHTML="<b>"+DOW[dow]+"</b>"+(ph?"<i>STAT</i>":"");
   lab.title=ph?"Clear the public holiday":"Mark as a public holiday";
   lab.onclick=function(){ if(S.stat[i]) delete S.stat[i]; else S.stat[i]=1; render(); };
   row.appendChild(lab);
