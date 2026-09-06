@@ -120,6 +120,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--night);outline-
 .ph-tag{font-size:9.5px;font-weight:700;letter-spacing:.04em}
 
 .sh{border:1px solid var(--grid);background:#fff;border-radius:10px;min-height:48px;
+  -webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
   font-size:12px;color:var(--muted);
   transition:background .14s,color .14s,border-color .14s,box-shadow .14s,transform .1s}
@@ -236,7 +237,7 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
       <h2>The roster</h2>
       <button class="clear" id="clear">Clear shifts</button>
     </div>
-    <p class="lede">Tap a shift to add it. Tap the day to mark a public holiday. Hold the Late box to switch
+    <p class="lede">Tap a shift to add it. Tap the day to mark a public holiday. Hold the Afternoon box to switch
       that day to the short 14:40&ndash;19:00 shift. Every box shows what it would gross that day.</p>
   </div>
   <div id="roster"></div>
@@ -258,7 +259,7 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
     <div class="fields">
       <label class="field"><span>Base rate</span><span class="in"><i>$</i><input type="number" id="base" step="0.01"></span></label>
       <label class="field"><span>Paid hours / shift</span><span class="in"><input type="number" id="ph" step="0.25"></span></label>
-      <label class="field"><span>Short late hours</span><span class="in"><input type="number" id="phHalf" step="0.01"></span></label>
+      <label class="field"><span>Short afternoon hours</span><span class="in"><input type="number" id="phHalf" step="0.01"></span></label>
       <label class="field"><span>Contracted FTE</span><span class="in"><input type="number" id="fte" step="0.05" min="0" max="1"></span></label>
       <label class="field"><span>Annual salary</span><span class="in"><i>$</i><input type="number" id="sal" step="1000"></span></label>
       <label class="field"><span>Hollie's KiwiSaver %</span><span class="in"><input type="number" id="hks" step="0.5"></span></label>
@@ -271,15 +272,15 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
       <li><b>Base rate $55.04</b>, and every shift pays <b>8.00 hours</b>. Ordinary hours of 24.00 and
         32.00 are clean multiples, and the 1 June shift splits 1.25 + 6.75 = 8.00.</li>
       <li><b>Night loading: +25% on hours worked 20:00&ndash;06:00, weekdays only.</b> That is what the
-        "NIGHT RATE" lines are. A late shift touches 20:00&ndash;23:00 &mdash; 3 hours &times; 25% &times;
+        "NIGHT RATE" lines are. An afternoon shift touches 20:00&ndash;23:00 &mdash; 3 hours &times; 25% &times;
         $55.04 = $41.28, the exact figure on all five of those lines. A night shift touches 7.25 loaded
         hours, so $99.76.</li>
       <li><b>Weekend: time and a half.</b> The "W/E SHIFT" line is the extra half: 1.25 hours &times; 50%
         &times; $55.04 = $34.40. Night loading does not stack on top of it.</li>
       <li><b>Public holiday: double time plus a day in lieu</b>, from the 1 June line.</li>
       <li>Student loan 12% above $928.00 a fortnight; KiwiSaver 3.5%. Both match all three payslips.</li>
-      <li><b>The short late (14:40&ndash;19:00) finishes before 20:00</b>, so it earns no night loading at
-        all &mdash; it pays flat base rate on a weekday, the same hourly as an early. Its paid hours are
+      <li><b>The short afternoon (14:40&ndash;19:00) finishes before 20:00</b>, so it earns no night loading at
+        all &mdash; it pays flat base rate on a weekday, the same hourly as a morning. Its paid hours are
         assumed to be the full 4.33 clock hours with no unpaid break, which no payslip confirms yet.</li>
     </ul>
 
@@ -293,10 +294,10 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
 
     <h3 class="sub">Where it is softer</h3>
     <ul class="notes">
-      <li>None of the three payslips contains a plain early shift or an ordinary Saturday, so the weekend
+      <li>None of the three payslips contains a plain morning shift or an ordinary Saturday, so the weekend
         rule rests on a single $34.40 line. Worth checking against a payslip with a real Saturday on it.</li>
-      <li>The 20:00&ndash;06:00 window fits every line, but 20:00&ndash;08:00 would too if early shifts are
-        exempt. If an early ever shows a $13.76 night line, it is the wider window.</li>
+      <li>The 20:00&ndash;06:00 window fits every line, but 20:00&ndash;08:00 would too if morning shifts are
+        exempt. If a morning ever shows a $13.76 night line, it is the wider window.</li>
       <li>The roster is a plain Week 1 / Week 2 with no calendar dates, so public holidays are not
         detected. Tap a day label to mark it as a stat day; tap again to clear it.</li>
       <li>Ignores annual, sick and study leave, overtime past 80 hours a fortnight, on-call and PDRP
@@ -312,11 +313,11 @@ h3.sub{font-size:12.5px;margin:16px 0 5px}
 <script>
 /* ============ pay engine ============ */
 var SHIFTS = {
-  early: {label:"Early", clock:"07:00-15:00", start:7,        end:15},
-  late:  {label:"Late",  clock:"14:40-23:00", start:14+40/60, end:23},
+  early: {label:"Morning",   clock:"07:00-15:00", start:7,        end:15},
+  late:  {label:"Afternoon", clock:"14:40-23:00", start:14+40/60, end:23},
   night: {label:"Night", clock:"22:45-06:45", start:22.75,    end:30.75}
 };
-var HALF = {label:"Late \u00bd", clock:"14:40-19:00", start:14+40/60, end:19};
+var HALF = {label:"Afternoon \u00bd", clock:"14:40-19:00", start:14+40/60, end:19};
 var ORDER = ["early","late","night"];
 var DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
@@ -426,7 +427,7 @@ function render(){
   var flat = Math.abs(uplift) < 0.5, up = uplift >= 0;
   document.getElementById("hSplit").innerHTML =
     "<div class='srow'><span>"+S.fte.toFixed(2).replace(/0$/,"")+" FTE base"+
-      "<span class='made'>"+nb+" weekday earlies, "+(nb*S.ph).toFixed(0)+" hrs, no loadings</span></span>"+
+      "<span class='made'>"+nb+" weekday mornings, "+(nb*S.ph).toFixed(0)+" hrs, no loadings</span></span>"+
       "<b>"+money(bnet,0)+"</b></div>"+
     "<div class='srow "+(flat?"":(up?"up":"down"))+"'><span>"+
       (flat?"Exactly at base":(up?"Picked up above base":"Short of base"))+
@@ -468,6 +469,18 @@ function render(){
 }
 
 var lastPop=null;
+/* Long-press state lives here, not in the button's closure: flipHalf() re-renders,
+   which destroys the button mid-gesture, and the click the phone synthesises on
+   finger-lift lands on the *replacement* button. recentFlip() is how that click,
+   and Android's contextmenu event, know to stand down. */
+var lastFlip=0;
+function recentFlip(){ return Date.now()-lastFlip<700; }
+function flipHalf(i){
+  if(S.half[i]) delete S.half[i]; else S.half[i]=1;
+  lastFlip=Date.now();
+  if(navigator.vibrate) try{navigator.vibrate(14);}catch(e){}
+  render();
+}
 function dayRow(i,map){
   var row=document.createElement("div"); row.className="day";
   var dow=((i%7)+7)%7, we=dow>=5, ph=isStatIdx(i);
@@ -490,31 +503,31 @@ function dayRow(i,map){
     b.innerHTML="<em>"+lbl+"</em>"+money(shiftGross(i,t),0);
     b.setAttribute("aria-pressed",on?"true":"false");
     b.title = (half?HALF.clock:SHIFTS[t].clock) +
-      (t==="late" ? " \u2014 hold to switch to the short late" : "");
+      (t==="late" ? " \u2014 hold to switch to the short afternoon" : "");
 
     var toggle=function(){
+      if(recentFlip()) return;   /* the click synthesised after a long-press */
       if(S.shifts[i]===t) delete S.shifts[i]; else { S.shifts[i]=t; lastPop=i+"|"+t; }
       render(); };
 
     if(t==="late"){
-      var timer=null, fired=false;
-      var flip=function(){ fired=true;
-        if(S.half[i]) delete S.half[i]; else S.half[i]=1;
-        if(navigator.vibrate) try{navigator.vibrate(14);}catch(e){}
-        render(); };
-      var down=function(){ fired=false; clearTimeout(timer); timer=setTimeout(flip,450); };
+      var timer=null, flipped=false;
+      var down=function(){ flipped=false; clearTimeout(timer);
+        timer=setTimeout(function(){ if(recentFlip()) return; flipped=true; flipHalf(i); },450); };
       var up=function(){ clearTimeout(timer); };
+      /* touch events keep firing on the original element even after it's detached,
+         so the closure is reliable here; refresh lastFlip on lift so the click that
+         follows is swallowed however long the hold was */
       b.addEventListener("touchstart",down,{passive:true});
       b.addEventListener("touchmove",up,{passive:true});
-      b.addEventListener("touchend",function(e){ up(); if(fired){ e.preventDefault(); fired=false; } });
+      b.addEventListener("touchcancel",up,{passive:true});
+      b.addEventListener("touchend",function(e){ up(); if(flipped){ lastFlip=Date.now(); e.preventDefault(); } });
       b.addEventListener("mousedown",down);
       b.addEventListener("mouseup",up);
       b.addEventListener("mouseleave",up);
-      b.addEventListener("contextmenu",function(e){ e.preventDefault(); flip(); });
-      b.onclick=function(){ if(fired){ fired=false; return; } toggle(); };
-    } else {
-      b.onclick=toggle;
+      b.addEventListener("contextmenu",function(e){ e.preventDefault(); if(!recentFlip()) flipHalf(i); });
     }
+    b.onclick=toggle;
     row.appendChild(b);
   });
   return row;

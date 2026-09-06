@@ -54,11 +54,14 @@ early, late and night all gross $660.48 — because the weekend rate replaces th
 loading.
 ### Shift definitions
 ```
-early  07:00–15:00   8.00 paid hrs
-late   14:40–23:00   8.00 paid hrs   (the 20 min gap is an unpaid break)
-night  22:45–06:45   8.00 paid hrs   (spans midnight — split per calendar day)
-short  14:40–19:00   4.33 paid hrs   (long-press the Late box)
+early  07:00–15:00   8.00 paid hrs   shown as "Morning"
+late   14:40–23:00   8.00 paid hrs   shown as "Afternoon"  (the 20 min gap is an unpaid break)
+night  22:45–06:45   8.00 paid hrs   shown as "Night"      (spans midnight — split per calendar day)
+short  14:40–19:00   4.33 paid hrs   shown as "Afternoon ½" (long-press the Afternoon box)
 ```
+The internal keys stay `early` / `late` / `night`: they are CSS class names and the values
+saved in `localStorage`, so renaming them would wipe every phone's roster. Only the
+user-facing labels say Morning / Afternoon / Night. The payslips themselves say "late".
 `shiftGross()` splits a shift into per-calendar-day segments and applies loadings per
 segment. This is why a Friday night shift ($643.28) beats a plain weekday night
 ($540.08) — 6.75 of its hours land on Saturday. Keep the segment logic.
@@ -123,6 +126,14 @@ Reasoning about CSS without rendering has already produced two shipped bugs here
   Watch initialisation order — `S = load()` runs early.
 - **`:first-of-type` on a mixed-element parent.** `.tot-row:first-of-type` matched nothing
   because `.tot-lab` is the first `div` sibling. Use an explicit class (`.big`).
+- **Long-press state in the button's closure.** The hold-to-flip handler on the
+  Afternoon box kept its "already fired" flag inside the button, but `flipHalf()` calls
+  `render()`, which destroys that button mid-gesture. The click the phone synthesises on
+  finger-lift then landed on the *replacement* button, whose flag was fresh, and toggled
+  the shift straight off again. Android also fires `contextmenu` ~500 ms in, flipping it a
+  second time. Fix: `lastFlip` / `recentFlip()` live at module level next to `lastPop`,
+  and every click and contextmenu on a shift box checks them first. Same rule as
+  `lastPop`: anything that must survive a re-render lives outside the DOM.
 - **Mixing periods in one line.** A line once read "$7,697 gross · $137,616 a year",
   putting a fortnightly figure beside an annual one. Always label the period.
 ## Soft assumptions — confirm against future payslips
